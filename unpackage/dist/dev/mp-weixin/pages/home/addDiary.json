@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "u-upload": "../../uni_modules/uview-plus/components/u-upload/u-upload",
+    "u--textarea": "../../uni_modules/uview-plus/components/u--textarea/u--textarea",
+    "u-button": "../../uni_modules/uview-plus/components/u-button/u-button",
+    "u-loading-page": "../../uni_modules/uview-plus/components/u-loading-page/u-loading-page",
+    "page": "../../components/pages/page"
+  }
+}

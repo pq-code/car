@@ -1,0 +1,16 @@
+.page.data-v-e4f1132a {
+  width: 100vw;
+  height: 100vh;
+  background-color: #dbdbdb;
+}
+.page .page-navbar.data-v-e4f1132a {
+  width: 100vw;
+}
+.page .page-center.data-v-e4f1132a {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: calc(100vh - 50px);
+  height: calc(100vh - 97px);
+  background-color: #ffffff;
+}

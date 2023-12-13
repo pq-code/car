@@ -1,0 +1,31 @@
+.content-heard.data-v-b05802bf {
+  height: 50px;
+  width: calc(100vw - 20px);
+  margin: 0 10px;
+}
+.text.data-v-b05802bf {
+  margin-left: 10px;
+  font-size: 18px;
+}
+.content-main.data-v-b05802bf {
+  margin: 10px auto;
+  width: 96%;
+  height: 500px;
+}
+.content-main .ul.data-v-b05802bf {
+  padding: 0px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.content-main .ul .li.data-v-b05802bf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  width: 49%;
+  height: 40px;
+  background-color: #ebebeb;
+  margin-bottom: 10px;
+}

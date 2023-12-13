@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "u-search": "../../uni_modules/uview-plus/components/u-search/u-search",
+    "u-loading-page": "../../uni_modules/uview-plus/components/u-loading-page/u-loading-page",
+    "dropdown": "../../components/dropdown/dropdown",
+    "page-search": "../../components/pageSearch/pageSearch"
+  }
+}

@@ -1,0 +1,130 @@
+{
+    "easycom": {
+        // 注意一定要放在custom里，否则无效，https://ask.dcloud.net.cn/question/131175
+        "custom": {
+            "^u-(.*)": "uview-plus/components/u-$1/u-$1.vue"
+        }
+    },
+    "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        {
+            "path": "pages/home/home",
+            "name": "home",
+            "permission": {
+                "scope.userLocation": {
+                    "desc": "你的位置信息将用于小程序位置接口的效果展示" // 高速公路行驶持续后台定位
+                },
+				"scope.userInfo": {
+				    "desc": "昵称和头像展示" // 
+				},
+				"scope.writePhotosAlbum": {
+				    "desc": "上传图片" // 
+				},
+				"scope.camera": {
+				    "desc": "头像设置" // 
+				}
+            },
+            "style": {
+                "navigationBarTitleText": "uni-app",
+                "navigationStyle": "custom"
+                // "navigationBarTextStyle": "white"
+            }
+        },
+		{
+		    "path": "pages/home/listDetails",
+		    "name": "listDetails",
+		    "style": {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false,
+		        "navigationStyle": "custom"
+		    }
+		},
+		{
+            "path": "pages/home/search",
+            "name": "search",
+            "style": {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+                "navigationStyle": "custom"
+            }
+        }, {
+            "path": "pages/home/searchList",
+            "name": "search.searchList",
+            "style": {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+                "navigationStyle": "custom"
+            }
+        }, {
+            "path": "pages/home/addDiary",
+            "name": "home.addDiary",
+            "style": {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+                "navigationStyle": "custom"
+            }
+        }, {
+            "path": "pages/addDetails/addcar",
+            "name": "addDetails.addcar",
+            "style": {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+                "navigationStyle": "custom"
+            }
+        }, {
+            "path": "pages/user/home",
+            "name": "user.home",
+            "style": {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+                "navigationStyle": "custom"
+            }
+        },
+        {
+            "path": "pages/user/login",
+            "name": "tool.login",
+            "style": {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+                "navigationStyle": "custom"
+            }
+        }, {
+            "path": "pages/user/editUserInfo",
+            "name": "user.editUserInfo",
+            "style": {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+                "navigationStyle": "custom"
+            }
+        }, {
+            "path": "pages/tool/home",
+            "name": "tool.home",
+            "style": {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+                "navigationStyle": "custom"
+            }
+        }
+
+    ],
+    "tabBar": {
+        "custom": true,
+        "list": [{
+                "pagePath": "pages/home/home",
+				"text": "首页"
+            },
+            {
+                "pagePath": "pages/tool/home"
+            },
+            {
+                "pagePath": "pages/user/home"
+            }
+        ]
+    },
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#F8F8F8",
+        "backgroundColor": "#F8F8F8"
+    },
+    "uniIdRouter": {}
+}

@@ -1,0 +1,1 @@
+<view class="page data-v-e4f1132a"><view class="page-navbar data-v-e4f1132a"><u-navbar wx:if="{{b}}" class="data-v-e4f1132a" bindleftClick="{{a}}" u-i="e4f1132a-0" bind:__l="__l" u-p="{{b}}"></u-navbar></view><view class="page-center data-v-e4f1132a"><slot></slot></view></view>

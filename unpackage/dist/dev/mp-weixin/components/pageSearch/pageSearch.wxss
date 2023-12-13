@@ -1,0 +1,22 @@
+.page-search.data-v-95474626 {
+  width: 100vw;
+  height: 100vh;
+  background-color: #dbdbdb;
+}
+.page-search .page-search-navbar.data-v-95474626 {
+  width: 100vw;
+}
+.page-search .page-search-navbar .user-name.data-v-95474626 {
+  font-size: 10px;
+  line-height: 30px;
+  margin-left: 6px;
+  text-align: center;
+}
+.page-search .page-search-center.data-v-95474626 {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: calc(100vh - 50px);
+  height: calc(100vh - 97px);
+  background-color: #ffffff;
+}

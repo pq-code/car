@@ -1,0 +1,35 @@
+.editUserInfo-center.data-v-1358535a {
+  padding: 20px;
+  height: 100%;
+}
+.editUserInfo-center .content-heard.data-v-1358535a {
+  height: 50px;
+  width: calc(100vw - 20px);
+  margin: 0 10px;
+}
+.editUserInfo-center .text.data-v-1358535a {
+  margin-left: 10px;
+  font-size: 18px;
+}
+.editUserInfo-center .content-main.data-v-1358535a {
+  margin: 10px auto;
+  width: 96%;
+  height: 500px;
+}
+.editUserInfo-center .content-main .content-main-li.data-v-1358535a {
+  margin: 10px 0;
+}
+.editUserInfo-center .editUserInfo-center-bottom.data-v-1358535a {
+  width: calc(100vw - 40px);
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  padding: 20px 0 40px;
+  background-color: #fff;
+}
+.title.data-v-1358535a {
+  font-size: 18px;
+  color: #1f1f1f;
+  font-weight: 600;
+  margin: 10px 0;
+}

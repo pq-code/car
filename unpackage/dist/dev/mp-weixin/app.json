@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/home/listDetails",
+    "pages/home/search",
+    "pages/home/searchList",
+    "pages/home/addDiary",
+    "pages/addDetails/addcar",
+    "pages/user/home",
+    "pages/user/login",
+    "pages/user/editUserInfo",
+    "pages/tool/home"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/tool/home"
+      },
+      {
+        "pagePath": "pages/user/home"
+      }
+    ]
+  },
+  "permission": {},
+  "usingComponents": {}
+}
