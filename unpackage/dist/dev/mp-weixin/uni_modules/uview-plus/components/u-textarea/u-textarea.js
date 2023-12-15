@@ -223,5 +223,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     G: common_vendor.s($options.textareaStyle)
   });
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-b6c174a6"], ["__file", "E:/code/car/uni_modules/uview-plus/components/u-textarea/u-textarea.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-b6c174a6"], ["__file", "/Users/pq/code/car/uni_modules/uview-plus/components/u-textarea/u-textarea.vue"]]);
 wx.createComponent(Component);

@@ -176,5 +176,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     x: common_vendor.n(_ctx.fixed && "u-navbar--fixed")
   });
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-f631659b"], ["__file", "E:/code/car/uni_modules/uview-plus/components/u-navbar/u-navbar.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-f631659b"], ["__file", "/Users/pq/code/car/uni_modules/uview-plus/components/u-navbar/u-navbar.vue"]]);
 wx.createComponent(Component);

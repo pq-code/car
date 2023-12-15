@@ -37,5 +37,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-f060453a"], ["__file", "E:/code/car/pages/home/listDetails.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-f060453a"], ["__file", "/Users/pq/code/car/pages/home/listDetails.vue"]]);
 wx.createPage(MiniProgramPage);

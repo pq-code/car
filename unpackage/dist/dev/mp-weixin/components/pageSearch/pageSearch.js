@@ -79,5 +79,5 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     };
   }
 });
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-95474626"], ["__file", "E:/code/car/components/pageSearch/pageSearch.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-95474626"], ["__file", "/Users/pq/code/car/components/pageSearch/pageSearch.vue"]]);
 wx.createComponent(Component);

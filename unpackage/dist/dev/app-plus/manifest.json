@@ -5,7 +5,7 @@
     "iPad"
   ],
   "id": "__UNI__C0A37B1",
-  "name": "kxzc",
+  "name": "car",
   "version": {
     "name": "1.0.0",
     "code": "100"
@@ -17,6 +17,9 @@
     "url": ""
   },
   "permissions": {
+    "OAuth": {},
+    "Camera": {},
+    "FaceID": {},
     "UniNView": {
       "description": "UniNView原生渲染"
     }
@@ -34,7 +37,6 @@
     },
     "popGesture": "close",
     "launchwebview": {
-      "render": "always",
       "id": "1",
       "kernel": "WKWebview"
     },
@@ -63,6 +65,23 @@
       },
       "apple": {},
       "plugins": {
+        "oauth": {
+          "weixin": {
+            "appid": "wx6676471b61c13be5",
+            "UniversalLinks": ""
+          },
+          "apple": {}
+        },
+        "ad": {
+          "gdt": {},
+          "ks": {},
+          "gm": {},
+          "ks-content": {},
+          "sigmob": {},
+          "hw": {},
+          "BXM-AD": {},
+          "bd": {}
+        },
         "audio": {
           "mp3": {
             "description": "Android平台录音支持MP3格式文件"
@@ -72,17 +91,23 @@
     },
     "statusbar": {
       "immersed": "supportedDevice",
-      "style": "light",
+      "style": "dark",
       "background": "#F8F8F8"
     },
     "uniStatistics": {
       "enable": false
     },
     "allowsInlineMediaPlayback": true,
+    "safearea": {
+      "background": "#FFFFFF",
+      "bottom": {
+        "offset": "auto"
+      }
+    },
     "uni-app": {
       "control": "uni-v3",
       "vueVersion": "3",
-      "compilerVersion": "3.6.18",
+      "compilerVersion": "3.98",
       "nvueCompiler": "uni-app",
       "renderer": "auto",
       "nvue": {
@@ -92,7 +117,38 @@
       "webView": {
         "minUserAgentVersion": "49.0"
       }
+    },
+    "tabBar": {
+      "position": "bottom",
+      "color": "#999",
+      "selectedColor": "#007aff",
+      "borderStyle": "rgba(0,0,0,0.4)",
+      "blurEffect": "none",
+      "fontSize": "10px",
+      "iconWidth": "24px",
+      "spacing": "3px",
+      "height": "50px",
+      "custom": true,
+      "list": [
+        {
+          "pagePath": "pages/home/home",
+          "text": "首页"
+        },
+        {
+          "pagePath": "pages/tool/home"
+        },
+        {
+          "pagePath": "pages/user/home"
+        }
+      ],
+      "selectedIndex": 0,
+      "shown": true,
+      "child": [
+        "lauchwebview"
+      ],
+      "selected": 0
     }
   },
+  "locale": "zh-Hans",
   "launch_path": "__uniappview.html"
 }

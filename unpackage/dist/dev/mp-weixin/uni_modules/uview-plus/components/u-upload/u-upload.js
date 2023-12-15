@@ -384,5 +384,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     m: common_vendor.s(_ctx.$u.addStyle(_ctx.customStyle))
   });
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-c8491d64"], ["__file", "E:/code/car/uni_modules/uview-plus/components/u-upload/u-upload.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-c8491d64"], ["__file", "/Users/pq/code/car/uni_modules/uview-plus/components/u-upload/u-upload.vue"]]);
 wx.createComponent(Component);

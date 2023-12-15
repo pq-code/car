@@ -1,4 +1,4 @@
-.content {
+.content.data-v-07e72d3c {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,7 +6,7 @@
   padding: 10px;
   flex-wrap: nowrap;
 }
-.content .content-heard {
+.content .content-heard.data-v-07e72d3c {
   display: flex;
   width: 100%;
   height: 100px;
@@ -17,12 +17,12 @@
   flex-direction: column;
   align-items: flex-start;
 }
-.content .content-heard .content-heard-top {
+.content .content-heard .content-heard-top.data-v-07e72d3c {
   display: flex;
   flex-direction: row;
   flex: 1, 1;
 }
-.content .content-heard .content-heard-top .content-heard-top-weather {
+.content .content-heard .content-heard-top .content-heard-top-weather.data-v-07e72d3c {
   display: flex;
   align-items: center;
   margin-left: 10px;
@@ -30,40 +30,40 @@
   font-weight: 400;
   color: #555555;
 }
-.content .content-heard .content-heard-bottom {
+.content .content-heard .content-heard-bottom.data-v-07e72d3c {
   height: 48px;
   display: flex;
   align-items: flex-end;
 }
-.content .content-heard .content-heard-bottom .content-heard-currentDate {
+.content .content-heard .content-heard-bottom .content-heard-currentDate.data-v-07e72d3c {
   width: 120px;
 }
-.content .content-heard .content-heard-bottom .content-heard-currentDate .content-heard-currentDate-p1 {
+.content .content-heard .content-heard-bottom .content-heard-currentDate .content-heard-currentDate-p1.data-v-07e72d3c {
   font-size: 20px;
   font-weight: 600;
   color: #1c1c1c;
   white-space: nowrap;
 }
-.content .content-heard .content-heard-bottom .content-heard-currentDate .content-heard-currentDate-p2 {
+.content .content-heard .content-heard-bottom .content-heard-currentDate .content-heard-currentDate-p2.data-v-07e72d3c {
   font-size: 14px;
   font-weight: 400;
   color: #555555;
   white-space: nowrap;
 }
-.content .content-heard .content-heard-bottom .content-heard-search {
+.content .content-heard .content-heard-bottom .content-heard-search.data-v-07e72d3c {
   flex: 1;
 }
-.content .content-main {
+.content .content-main.data-v-07e72d3c {
   width: 100%;
   border-radius: 6px;
 }
-.content .content-main .content-main-heard {
+.content .content-main .content-main-heard.data-v-07e72d3c {
   width: 100%;
   border-radius: 6px;
   background-color: #ffae7c;
   margin-bottom: 10px;
 }
-.content .content-main .content-main-list {
+.content .content-main .content-main-list.data-v-07e72d3c {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
@@ -71,12 +71,12 @@
   margin-bottom: 84px;
   overflow: hidden;
 }
-.content .content-main .content-main-list .ul {
+.content .content-main .content-main-list .ul.data-v-07e72d3c {
   margin: 0;
   padding: 0;
   width: 100%;
 }
-.content .content-main .content-main-list .ul .li {
+.content .content-main .content-main-list .ul .li.data-v-07e72d3c {
   display: flex;
   flex-direction: column;
   align-content: space-around;
@@ -84,21 +84,21 @@
   margin-bottom: 10px;
   border-radius: 6px;
 }
-.content .content-main .content-main-list .ul .li .text {
+.content .content-main .content-main-list .ul .li .text.data-v-07e72d3c {
   flex: 1;
   padding: 10px;
   font-size: 12px;
 }
-.content .content-main .content-main-list .ul .li .text .text-title {
+.content .content-main .content-main-list .ul .li .text .text-title.data-v-07e72d3c {
   font-size: 16px;
 }
-.content .content-main .content-main-list .ul .li .text .text-details {
+.content .content-main .content-main-list .ul .li .text .text-details.data-v-07e72d3c {
   font-size: 12px;
 }
-.content .content-main .content-main-noList {
+.content .content-main .content-main-noList.data-v-07e72d3c {
   height: 100%;
 }
-.content .content-main .content-main-noList .content-main-noList-add {
+.content .content-main .content-main-noList .content-main-noList-add.data-v-07e72d3c {
   height: 400px;
   display: flex;
   flex-direction: column;
@@ -106,7 +106,7 @@
   justify-content: center;
   text-align: center;
 }
-.content .content-main .content-main-noList .content-main-noList-add .title {
+.content .content-main .content-main-noList .content-main-noList-add .title.data-v-07e72d3c {
   font-size: 20px;
   font-weight: 600;
   color: #1c1c1c;

@@ -59,5 +59,5 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     };
   }
 });
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-a66da52b"], ["__file", "E:/code/car/components/dropdown/dropdown.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-a66da52b"], ["__file", "/Users/pq/code/car/components/dropdown/dropdown.vue"]]);
 wx.createComponent(Component);

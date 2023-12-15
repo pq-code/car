@@ -138,5 +138,5 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     };
   }
 });
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1358535a"], ["__file", "E:/code/car/pages/user/editUserInfo.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1358535a"], ["__file", "/Users/pq/code/car/pages/user/editUserInfo.vue"]]);
 wx.createPage(MiniProgramPage);

@@ -83,7 +83,7 @@ const _sfc_main = {
           return {
             a: item.name,
             b: common_vendor.o(($event) => tabbarClick(item), item.name),
-            c: "f9965352-2-" + i0 + ",f9965352-1",
+            c: "38ce3fa1-2-" + i0 + ",38ce3fa1-1",
             d: common_vendor.p({
               text: item.text,
               name: item.name,
@@ -103,5 +103,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "E:/code/car/pages/user/home.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "/Users/pq/code/car/pages/user/home.vue"]]);
 wx.createPage(MiniProgramPage);

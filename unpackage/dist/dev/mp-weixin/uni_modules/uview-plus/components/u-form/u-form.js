@@ -261,5 +261,5 @@ const _sfc_main = {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {};
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "E:/code/car/uni_modules/uview-plus/components/u-form/u-form.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/pq/code/car/uni_modules/uview-plus/components/u-form/u-form.vue"]]);
 wx.createComponent(Component);

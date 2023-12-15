@@ -222,5 +222,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     p: common_vendor.o((...args) => $options.clickHandler && $options.clickHandler(...args))
   });
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-34d954f9"], ["__file", "E:/code/car/uni_modules/uview-plus/components/u-avatar/u-avatar.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-34d954f9"], ["__file", "/Users/pq/code/car/uni_modules/uview-plus/components/u-avatar/u-avatar.vue"]]);
 wx.createComponent(Component);

@@ -1,1 +1,1 @@
-<uv-textarea wx:if="{{c}}" bindinput="{{a}}" bindupdateModelValue="{{b}}" u-i="11ca10e0-0" bind:__l="__l" u-p="{{c}}"></uv-textarea>
+<uv-textarea wx:if="{{c}}" bindinput="{{a}}" bindupdateModelValue="{{b}}" u-i="590b84ac-0" bind:__l="__l" u-p="{{c}}"></uv-textarea>

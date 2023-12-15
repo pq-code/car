@@ -7,25 +7,25 @@ require("../../api/service/wxService.js");
 require("../../api/error/errTips.js");
 if (!Array) {
   const _easycom_u_search2 = common_vendor.resolveComponent("u-search");
-  const _easycom_u_navbar2 = common_vendor.resolveComponent("u-navbar");
   const _easycom_u_swiper2 = common_vendor.resolveComponent("u-swiper");
+  const _easycom_u_navbar2 = common_vendor.resolveComponent("u-navbar");
   const _easycom_u_tabs2 = common_vendor.resolveComponent("u-tabs");
   const _easycom_u_sticky2 = common_vendor.resolveComponent("u-sticky");
   const _easycom_u_image2 = common_vendor.resolveComponent("u-image");
   const _easycom_u_tabbar_item2 = common_vendor.resolveComponent("u-tabbar-item");
   const _easycom_u_tabbar2 = common_vendor.resolveComponent("u-tabbar");
-  (_easycom_u_search2 + _easycom_u_navbar2 + _easycom_u_swiper2 + _easycom_u_tabs2 + _easycom_u_sticky2 + _easycom_u_image2 + _easycom_u_tabbar_item2 + _easycom_u_tabbar2)();
+  (_easycom_u_search2 + _easycom_u_swiper2 + _easycom_u_navbar2 + _easycom_u_tabs2 + _easycom_u_sticky2 + _easycom_u_image2 + _easycom_u_tabbar_item2 + _easycom_u_tabbar2)();
 }
 const _easycom_u_search = () => "../../uni_modules/uview-plus/components/u-search/u-search.js";
-const _easycom_u_navbar = () => "../../uni_modules/uview-plus/components/u-navbar/u-navbar.js";
 const _easycom_u_swiper = () => "../../uni_modules/uview-plus/components/u-swiper/u-swiper.js";
+const _easycom_u_navbar = () => "../../uni_modules/uview-plus/components/u-navbar/u-navbar.js";
 const _easycom_u_tabs = () => "../../uni_modules/uview-plus/components/u-tabs/u-tabs.js";
 const _easycom_u_sticky = () => "../../uni_modules/uview-plus/components/u-sticky/u-sticky.js";
 const _easycom_u_image = () => "../../uni_modules/uview-plus/components/u-image/u-image.js";
 const _easycom_u_tabbar_item = () => "../../uni_modules/uview-plus/components/u-tabbar-item/u-tabbar-item.js";
 const _easycom_u_tabbar = () => "../../uni_modules/uview-plus/components/u-tabbar/u-tabbar.js";
 if (!Math) {
-  (_easycom_u_search + _easycom_u_navbar + _easycom_u_swiper + _easycom_u_tabs + _easycom_u_sticky + _easycom_u_image + _easycom_u_tabbar_item + _easycom_u_tabbar)();
+  (_easycom_u_search + _easycom_u_swiper + _easycom_u_navbar + _easycom_u_tabs + _easycom_u_sticky + _easycom_u_image + _easycom_u_tabbar_item + _easycom_u_tabbar)();
 }
 const _sfc_main = {
   __name: "home",
@@ -34,37 +34,42 @@ const _sfc_main = {
     const keyword = common_vendor.ref("");
     const datalist1 = common_vendor.ref([]);
     const datalist2 = common_vendor.ref([]);
-    common_vendor.ref(["平安喜乐", "开门见喜", "前途似锦"]);
-    common_vendor.ref(common_vendor.dayjs().format("MM月DD日"));
-    common_vendor.ref(common_vendor.dayjs().day());
     const userAvatar = common_vendor.ref();
-    const weather = common_vendor.ref({});
-    common_vendor.ref(0);
     const navbarHeight = common_vendor.ref();
     const tabbarClick = (e) => {
       common_vendor.index.switchTab({
         url: e.pagePath
       });
     };
-    const tabsList = [{
-      name: "关注"
-    }, {
-      name: "推荐"
-    }, {
-      name: "电影"
-    }, {
-      name: "科技"
-    }, {
-      name: "音乐"
-    }, {
-      name: "美食"
-    }, {
-      name: "文化"
-    }, {
-      name: "财经"
-    }, {
-      name: "手工"
-    }];
+    const tabsList = [
+      {
+        name: "关注"
+      },
+      {
+        name: "推荐"
+      },
+      {
+        name: "电影"
+      },
+      {
+        name: "科技"
+      },
+      {
+        name: "音乐"
+      },
+      {
+        name: "美食"
+      },
+      {
+        name: "文化"
+      },
+      {
+        name: "财经"
+      },
+      {
+        name: "手工"
+      }
+    ];
     const tabList = [
       {
         pagePath: "/pages/home/home",
@@ -120,25 +125,6 @@ const _sfc_main = {
         details: "的多撒点萨达啊但是大的多撒点"
       }
     ]);
-    const getWeather = () => {
-      common_vendor.index.request({
-        url: "https://devapi.qweather.com/v7/weather/now?location=101010100&key=bf108d402c7e471b90e9f0323364ee3a",
-        method: "GET",
-        success: (res) => {
-          const { now } = res.data;
-          weather.value = {
-            title: `${now.text} ${now.windDir}`,
-            icon: now.icon
-          };
-          common_vendor.index.setStorageSync("weather", weather.value);
-        },
-        fail: () => {
-          this.openmsg("警告", "天气接口获取失败");
-        },
-        complete: () => {
-        }
-      });
-    };
     const init = () => {
       let i = 0;
       while (i < imageList.value.length) {
@@ -168,12 +154,6 @@ const _sfc_main = {
           console.log("height", navbarHeight.value);
         }
       });
-      console.log(common_vendor.index.getStorageSync("weather"));
-      if (common_vendor.index.getStorageSync("weather")) {
-        weather.value = common_vendor.index.getStorageSync("weather");
-      } else {
-        getWeather();
-      }
       common_vendor.index.checkSession({
         success(res) {
           console.log("当前登录未失效，不需要重新登录");
@@ -206,26 +186,32 @@ const _sfc_main = {
           modelValue: keyword.value
         }),
         e: common_vendor.p({
+          list: ["https://cdn.uviewui.com/uview/swiper/swiper1.png", "https://cdn.uviewui.com/uview/swiper/swiper2.png", "https://cdn.uviewui.com/uview/swiper/swiper3.png"],
+          indicator: true,
+          indicatorMode: "dot",
+          circular: true
+        }),
+        f: common_vendor.p({
           fixed: true,
           placeholder: true
         }),
-        f: common_vendor.p({
+        g: common_vendor.p({
           list: ["https://cdn.uviewui.com/uview/swiper/swiper1.png", "https://cdn.uviewui.com/uview/swiper/swiper2.png", "https://cdn.uviewui.com/uview/swiper/swiper3.png"],
           indicator: true,
           indicatorMode: "line",
           circular: true
         }),
-        g: common_vendor.o(tabsClick),
-        h: common_vendor.p({
+        h: common_vendor.o(tabsClick),
+        i: common_vendor.p({
           list: tabsList
         }),
-        i: common_vendor.p({
+        j: common_vendor.p({
           ["offset-top"]: navbarHeight.value,
           bgColor: "#fff"
         }),
-        j: common_vendor.f(datalist1.value, (item, index, i0) => {
+        k: common_vendor.f(datalist1.value, (item, index, i0) => {
           return {
-            a: "f19c787a-5-" + i0,
+            a: "07e72d3c-6-" + i0,
             b: common_vendor.p({
               showLoading: true,
               lazyLoad: true,
@@ -239,9 +225,9 @@ const _sfc_main = {
             f: `left-${index}`
           };
         }),
-        k: common_vendor.f(datalist2.value, (item, index, i0) => {
+        l: common_vendor.f(datalist2.value, (item, index, i0) => {
           return {
-            a: "f19c787a-6-" + i0,
+            a: "07e72d3c-7-" + i0,
             b: common_vendor.p({
               showLoading: true,
               lazyLoad: true,
@@ -256,13 +242,13 @@ const _sfc_main = {
             f: `right-${index}`
           };
         }),
-        l: common_vendor.f(tabList, (item, i, i0) => {
+        m: common_vendor.f(tabList, (item, i, i0) => {
           return {
             a: item.selectedIconPath,
             b: item.iconPath,
             c: item.name,
             d: common_vendor.o(($event) => tabbarClick(item), item.name),
-            e: "f19c787a-8-" + i0 + ",f19c787a-7",
+            e: "07e72d3c-9-" + i0 + ",07e72d3c-8",
             f: common_vendor.p({
               text: item.text,
               name: item.name,
@@ -270,8 +256,8 @@ const _sfc_main = {
             })
           };
         }),
-        m: common_vendor.o((name) => value1.value = name),
-        n: common_vendor.p({
+        n: common_vendor.o((name) => value1.value = name),
+        o: common_vendor.p({
           activeColor: "#d81e06",
           value: value1.value,
           fixed: true,
@@ -282,6 +268,6 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "E:/code/car/pages/home/home.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-07e72d3c"], ["__file", "/Users/pq/code/car/pages/home/home.vue"]]);
 _sfc_main.__runtimeHooks = 1;
 wx.createPage(MiniProgramPage);

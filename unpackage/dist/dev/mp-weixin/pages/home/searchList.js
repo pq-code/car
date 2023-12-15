@@ -54,5 +54,5 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     };
   }
 });
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-68eb5c03"], ["__file", "E:/code/car/pages/home/searchList.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-68eb5c03"], ["__file", "/Users/pq/code/car/pages/home/searchList.vue"]]);
 wx.createPage(MiniProgramPage);

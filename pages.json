@@ -107,6 +107,8 @@
 
     ],
     "tabBar": {
+		"color": "#1e1e1e",
+		
         "custom": true,
         "list": [{
                 "pagePath": "pages/home/home",

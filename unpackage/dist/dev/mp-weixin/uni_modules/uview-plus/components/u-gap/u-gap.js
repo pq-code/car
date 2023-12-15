@@ -114,5 +114,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     a: common_vendor.s($options.gapStyle)
   };
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-6fe44ee6"], ["__file", "E:/code/car/uni_modules/uview-plus/components/u-gap/u-gap.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-6fe44ee6"], ["__file", "/Users/pq/code/car/uni_modules/uview-plus/components/u-gap/u-gap.vue"]]);
 wx.createComponent(Component);
