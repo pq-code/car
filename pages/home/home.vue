@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { onLoad } from "@dcloudio/uni-app";
 import { getSetting, getLoginFn } from "../../utils/index";
 import dayjs from "dayjs";
+import listCard from "./components/listCard.vue";
 
 const value1 = ref(0);
 const keyword = ref("");
@@ -22,7 +23,7 @@ const tabsList = [
     name: "关注",
   },
   {
-    name: "推荐",
+    name: "日期",
   },
   {
     name: "电影",
@@ -53,6 +54,7 @@ const tabList = [
     selectedIconPath: "/static/home_sec.png",
     text: "首页",
     name: "home",
+    icon: "home",
   },
   {
     pagePath: "/pages/tool/home",
@@ -60,6 +62,7 @@ const tabList = [
     selectedIconPath: "/static/home_sec.png",
     text: "工具",
     name: "tool",
+    icon: "account",
   },
   {
     pagePath: "/pages/user/home",
@@ -67,6 +70,7 @@ const tabList = [
     selectedIconPath: "/static/user_sec.png",
     text: "我的",
     name: "user",
+    icon: "account",
   },
 ];
 
@@ -74,8 +78,7 @@ const imageList = ref([
   {
     src: "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
     title: "标题1",
-    details:
-      "萨达啊但是大的多撒点萨达啊但是大的多撒点,萨达啊但是大的多撒点萨达啊但是大的多撒点",
+    details: "萨达啊但的多撒点萨达啊但是大的多撒点",
   },
   {
     src: "https://cdn.uviewui.com/uview/album/1.jpg",
@@ -201,12 +204,11 @@ const tabsClick = (item) => {
     <u-navbar fixed placeholder>
       <template #left>
         <view style="width: 100%; display: flex">
-          <view style="line-height: 34px; margin-left: 10px"> 标题 </view>
+          <!-- <view style="line-height: 34px; margin-left: 10px"> 标题 </view> -->
         </view>
       </template>
       <template #center>
         <u-search
-          style="width: 10% !important"
           placeholder="搜索"
           disabled
           :show-action="false"
@@ -217,18 +219,13 @@ const tabsClick = (item) => {
         ></u-search>
       </template>
       <template #right>
-        <u-swiper
-          :list="[
-            'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-            'https://cdn.uviewui.com/uview/swiper/swiper2.png',
-            'https://cdn.uviewui.com/uview/swiper/swiper3.png',
-          ]"
-          indicator
-          indicatorMode="dot"
-          circular
-        ></u-swiper>
+        <!-- <view>1212</view> -->
       </template>
     </u-navbar>
+    <u-sticky :offset-top="navbarHeight" bgColor="#fff">
+      <u-tabs :list="tabsList" @click="tabsClick"></u-tabs>
+    </u-sticky>
+
     <view class="content-main">
       <view class="content-main-heard">
         <u-swiper
@@ -243,51 +240,22 @@ const tabsClick = (item) => {
         ></u-swiper>
       </view>
 
-      <u-sticky :offset-top="navbarHeight" bgColor="#fff">
-        <u-tabs :list="tabsList" @click="tabsClick"></u-tabs>
-      </u-sticky>
-
       <view class="content-main-list">
         <ul class="ul">
-          <li
-            class="li"
+          <list-card
             v-for="(item, index) in datalist1"
             @click="onpen(item)"
             :key="`left-${index}`"
-          >
-            <u-image
-              :showLoading="true"
-              :lazyLoad="true"
-              radius="6px 6px 0 0"
-              :src="item.src"
-              width="100%"
-            ></u-image>
-            <view class="text">
-              <view class="text-title">{{ item.title }}</view>
-              <view class="text-details">{{ item.details }}</view>
-            </view>
-          </li>
+            :item="item"
+          />
         </ul>
         <ul class="ul">
-          <li
-            class="li"
+          <list-card
             v-for="(item, index) in datalist2"
             @click="onpen(item)"
-            :key="`right-${index}`"
-          >
-            <u-image
-              :showLoading="true"
-              :lazyLoad="true"
-              radius="6px 6px 0 0"
-              :src="item.src"
-              width="100%"
-              height="120"
-            ></u-image>
-            <view class="text">
-              <view class="text-title">{{ item.title }}</view>
-              <view class="text-details">{{ item.details }}</view>
-            </view>
-          </li>
+            :key="`left-${index}`"
+            :item="item"
+          />
         </ul>
       </view>
     </view>
@@ -306,7 +274,7 @@ const tabsClick = (item) => {
         :text="item.text"
         :name="item.name"
         @click="tabbarClick(item)"
-        icon="home"
+        :icon="item.icon"
       >
         <image
           class="bar_img"
@@ -328,10 +296,8 @@ const tabsClick = (item) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 40px);
-  padding: 10px;
+  height: calc(100vh - 20px);
   flex-wrap: nowrap;
-
   .content-heard {
     display: flex;
     width: 100%;
@@ -390,7 +356,8 @@ const tabsClick = (item) => {
   }
 
   .content-main {
-    width: 100%;
+    width: calc(100% - 20px);
+    padding: 10px;
     border-radius: 6px;
     // padding-bottom: 20px;
 

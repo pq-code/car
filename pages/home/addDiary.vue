@@ -1,7 +1,6 @@
-<script setup lang="ts">
-import { async } from 'q';
-import { ref } from 'vue';
-import page from '../../components/pages/page.vue';
+<script setup>
+import { ref } from "vue";
+import page from "../../components/pages/page.vue";
 
 const loading = ref(false);
 const textContent = ref();
@@ -15,14 +14,14 @@ const addDiaryFn = () => {
 const uploadFilePromise = (url) => {
   return new Promise((resolve, reject) => {
     let a = uni.uploadFile({
-      url: 'http://localhost:3005/weixin/xcx/upload', // 仅为示例，非真实的接口地址
+      url: "http://localhost:3005/weixin/xcx/upload", // 仅为示例，非真实的接口地址
       filePath: url,
-      name: 'file',
+      name: "file",
       header: {
-        Authorization: uni.getStorageSync('kxzc-token'),
+        Authorization: uni.getStorageSync("kxzc-token"),
       },
       formData: {
-        user: 'test',
+        user: "test",
       },
       success: (res) => {
         resolve(JSON.parse(res.data).result.imagePath);
@@ -43,8 +42,8 @@ const afterRead = async (event) => {
   lists.map((item) => {
     fileList.value.push({
       ...item,
-      status: 'uploading',
-      message: '上传中',
+      status: "uploading",
+      message: "上传中",
     });
   });
   for (let i = 0; i < lists.length; i++) {
@@ -54,8 +53,8 @@ const afterRead = async (event) => {
       fileListLen,
       1,
       Object.assign(item, {
-        status: 'success',
-        message: '',
+        status: "success",
+        message: "",
         url: result,
       })
     );
@@ -67,13 +66,31 @@ const afterRead = async (event) => {
   <page title="添加日记">
     <view class="addDiary-center">
       <view class="content-main">
-        <u-upload :fileList="fileList" @afterRead="afterRead" @delete="deletePic" name="1" multiple :maxCount="3"></u-upload>
+        <u-upload
+          :fileList="fileList"
+          @afterRead="afterRead"
+          @delete="deletePic"
+          name="1"
+          multiple
+          :maxCount="3"
+        ></u-upload>
         <view class="content-main-li">
           <view class="title">添加内容</view>
-          <u--textarea v-model="textContent" placeholder="请输入内容"></u--textarea>
+          <u--textarea
+            v-model="textContent"
+            placeholder="请输入内容"
+          ></u--textarea>
         </view>
       </view>
-      <view class="addDiary-center-bottom"> <u-button style="width: 100%" shape="circle" type="primary" text="确定" @click="addDiaryFn()"></u-button> </view>
+      <view class="addDiary-center-bottom">
+        <u-button
+          style="width: 100%"
+          shape="circle"
+          type="primary"
+          text="确定"
+          @click="addDiaryFn()"
+        ></u-button>
+      </view>
     </view>
   </page>
   <u-loading-page :loading="loading"></u-loading-page>

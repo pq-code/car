@@ -15,7 +15,7 @@ if (!Math) {
   (_easycom_u_upload + _easycom_u__textarea + _easycom_u_button + page + _easycom_u_loading_page)();
 }
 const page = () => "../../components/pages/page.js";
-const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
+const _sfc_main = {
   __name: "addDiary",
   setup(__props) {
     const loading = common_vendor.ref(false);
@@ -102,6 +102,6 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       };
     };
   }
-});
+};
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-0a767883"], ["__file", "/Users/pq/code/car/pages/home/addDiary.vue"]]);
 wx.createPage(MiniProgramPage);

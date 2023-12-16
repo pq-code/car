@@ -8166,9 +8166,7 @@ function deepMerge(target = {}, source = {}) {
     if (!source.hasOwnProperty(prop))
       continue;
     if (prop in target) {
-      if (source[prop] == null) {
-        target[prop] = source[prop];
-      } else if (typeof target[prop] !== "object") {
+      if (typeof target[prop] !== "object") {
         target[prop] = source[prop];
       } else if (typeof source[prop] !== "object") {
         target[prop] = source[prop];
@@ -8928,7 +8926,6 @@ const DatetimePicker = {
   // datetimePicker 组件
   datetimePicker: {
     show: false,
-    popupMode: "bottom",
     showToolbar: true,
     value: "",
     title: "",
@@ -9429,7 +9426,6 @@ const Picker = {
   // picker
   picker: {
     show: false,
-    popupMode: "bottom",
     showToolbar: true,
     title: "",
     columns: () => [],
@@ -10076,8 +10072,8 @@ const zIndex = {
 };
 let platform = "none";
 platform = "vue3";
-platform = "mp";
 platform = "weixin";
+platform = "mp";
 const platform$1 = platform;
 const $u = {
   route,
