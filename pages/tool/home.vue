@@ -3,62 +3,42 @@ import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import dayjs from 'dayjs';
 
-const tabbarClick = (e) => {
-    uni.switchTab({
-        url: e.pagePath,
-    });
-};
-const tabList = [
-    {
-        pagePath: '/pages/home/home',
-        iconPath: '/static/home.png',
-        selectedIconPath: '/static/home_sec.png',
-        text: '首页',
-        name: 'home',
-    },
-    {
-        pagePath: '/pages/tool/home',
-        iconPath: '/static/home.png',
-        selectedIconPath: '/static/home_sec.png',
-        text: '工具',
-        name: 'tool',
-    },
-    {
-        pagePath: '/pages/user/home',
-        iconPath: '/static/user.png',
-        selectedIconPath: '/static/user_sec.png',
-        text: '我的',
-        name: 'user',
-    },
-];
-
+let list = [
+	{name:'顺风车'},
+	{name:'二手车'},
+	{name:'同城服务'},
+	{name:'同城商家'},
+	{name:'房屋租售'},
+	{name:'求职招聘'},
+	{name:'农林畜牧'}
+]
 onLoad(() => { });
+
+const addPage = ()=>{
+	uni.navigateTo({
+	  url: "addPage/addCar",
+	});
+}
+	 
 </script>
 
 <template>
     <view class="content">
         <view class="content-heard"> </view>
-
+		<u-divider text="选择你要添加的类型"></u-divider>
         <view class="content-main">
             <view class="li"
-                  v-for="item of 9"> 12212</view>
+				v-for="(item,index) of list" key="`${item.name}_${index}`"  @click="addPage(item.name)"> 
+				<u-image
+				         :showLoading="true"
+				         :src="userAvatar"
+				         width="40px"
+				         height="40px"
+				         shape="circle"></u-image>
+				<view> {{item.name}} </view>
+				</view>
         </view>
-        <u-tabbar activeColor="aqua"
-                  :value="value1"
-                  @change="(name) => (value1 = name)"
-                  :fixed="true"
-                  :placeholder="true"
-                  :safeAreaInsetBottom="true">
-            <u-tabbar-item v-for="(item, i) in tabList"
-                           :key="item.name"
-                           :text="item.text"
-                           :name="item.name"
-                           @click="tabbarClick(item)"
-                           icon="home">
-                <!-- <image class="bar_img" slot="active-icon" :src="item.selectedIconPath"></image>
-                    <image class="bar_img" slot="inactive-icon" :src="item.iconPath"></image> -->
-            </u-tabbar-item>
-        </u-tabbar>
+        <tabbar></tabbar>
     </view>
 </template>
 
@@ -68,7 +48,7 @@ onLoad(() => { });
     flex-direction: column;
     align-items: center;
     height: calc(100vh - 40px);
-    padding: 20px;
+    padding: 10px;
     flex-wrap: nowrap;
 
     //   background: linear-gradient(rgb(0, 229, 255) 0%, rgb(59, 242, 255) 0%, rgb(255, 255, 255) 30%);
@@ -86,16 +66,25 @@ onLoad(() => { });
     }
 
     .content-main {
-        height: calc(100vh - 130px);
-        width: 100%;
-        overflow-y: auto;
+        // height: calc(100vh - 130px);
+        // width: 100%;
+        // overflow-y: auto;
         border-radius: 6px;
-
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-start;
+		align-content: flex-start;
         .li {
-            height: 60px;
-            width: 100%;
-            background-color: rgb(198, 198, 198);
-            margin-top: 10px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+            height: 80px;
+            width: 80px;
+            // background-color: rgb(198, 198, 198);
+			font-size: 13px;
         }
     }
 }

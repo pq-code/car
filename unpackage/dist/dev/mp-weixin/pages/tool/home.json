@@ -3,7 +3,8 @@
   "enablePullDownRefresh": false,
   "navigationStyle": "custom",
   "usingComponents": {
-    "u-tabbar-item": "../../uni_modules/uview-plus/components/u-tabbar-item/u-tabbar-item",
-    "u-tabbar": "../../uni_modules/uview-plus/components/u-tabbar/u-tabbar"
+    "u-divider": "../../uni_modules/uview-plus/components/u-divider/u-divider",
+    "u-image": "../../uni_modules/uview-plus/components/u-image/u-image",
+    "tabbar": "../../components/tabbar/tabbar"
   }
 }

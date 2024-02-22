@@ -2,7 +2,7 @@
 const common_vendor = require("../../common/vendor.js");
 const utils_index = require("../../utils/index.js");
 const api_error_errTips = require("../error/errTips.js");
-let baseURL = "http://localhost:4005/";
+let baseURL = "http://42.192.153.216:3005/api/";
 let token = common_vendor.index.getStorageSync("kxzc-token");
 const wxService = (urls, config, method) => {
   let url = baseURL + urls;

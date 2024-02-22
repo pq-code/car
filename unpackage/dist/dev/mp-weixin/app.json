@@ -5,11 +5,11 @@
     "pages/home/search",
     "pages/home/searchList",
     "pages/home/addDiary",
-    "pages/addDetails/addcar",
     "pages/user/home",
     "pages/user/login",
     "pages/user/editUserInfo",
-    "pages/tool/home"
+    "pages/tool/home",
+    "pages/tool/addPage/addCar"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -19,6 +19,8 @@
   },
   "tabBar": {
     "color": "#1e1e1e",
+    "selectedColor": "#0aa671",
+    "borderStyle": "white",
     "custom": true,
     "list": [
       {
@@ -26,10 +28,12 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/tool/home"
+        "pagePath": "pages/tool/home",
+        "text": "工具"
       },
       {
-        "pagePath": "pages/user/home"
+        "pagePath": "pages/user/home",
+        "text": "我的"
       }
     ]
   },

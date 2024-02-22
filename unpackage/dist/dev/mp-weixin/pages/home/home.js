@@ -11,35 +11,28 @@ if (!Array) {
   const _easycom_u_tabs2 = common_vendor.resolveComponent("u-tabs");
   const _easycom_u_sticky2 = common_vendor.resolveComponent("u-sticky");
   const _easycom_u_swiper2 = common_vendor.resolveComponent("u-swiper");
-  const _easycom_u_tabbar_item2 = common_vendor.resolveComponent("u-tabbar-item");
-  const _easycom_u_tabbar2 = common_vendor.resolveComponent("u-tabbar");
-  (_easycom_u_search2 + _easycom_u_navbar2 + _easycom_u_tabs2 + _easycom_u_sticky2 + _easycom_u_swiper2 + _easycom_u_tabbar_item2 + _easycom_u_tabbar2)();
+  const _easycom_tabbar2 = common_vendor.resolveComponent("tabbar");
+  (_easycom_u_search2 + _easycom_u_navbar2 + _easycom_u_tabs2 + _easycom_u_sticky2 + _easycom_u_swiper2 + _easycom_tabbar2)();
 }
 const _easycom_u_search = () => "../../uni_modules/uview-plus/components/u-search/u-search.js";
 const _easycom_u_navbar = () => "../../uni_modules/uview-plus/components/u-navbar/u-navbar.js";
 const _easycom_u_tabs = () => "../../uni_modules/uview-plus/components/u-tabs/u-tabs.js";
 const _easycom_u_sticky = () => "../../uni_modules/uview-plus/components/u-sticky/u-sticky.js";
 const _easycom_u_swiper = () => "../../uni_modules/uview-plus/components/u-swiper/u-swiper.js";
-const _easycom_u_tabbar_item = () => "../../uni_modules/uview-plus/components/u-tabbar-item/u-tabbar-item.js";
-const _easycom_u_tabbar = () => "../../uni_modules/uview-plus/components/u-tabbar/u-tabbar.js";
+const _easycom_tabbar = () => "../../components/tabbar/tabbar.js";
 if (!Math) {
-  (_easycom_u_search + _easycom_u_navbar + _easycom_u_tabs + _easycom_u_sticky + _easycom_u_swiper + listCard + _easycom_u_tabbar_item + _easycom_u_tabbar)();
+  (_easycom_u_search + _easycom_u_navbar + _easycom_u_tabs + _easycom_u_sticky + _easycom_u_swiper + listCard + _easycom_tabbar)();
 }
 const listCard = () => "./components/listCard.js";
 const _sfc_main = {
   __name: "home",
   setup(__props) {
-    const value1 = common_vendor.ref(0);
+    common_vendor.ref(0);
     const keyword = common_vendor.ref("");
     const datalist1 = common_vendor.ref([]);
     const datalist2 = common_vendor.ref([]);
     const userAvatar = common_vendor.ref();
     const navbarHeight = common_vendor.ref();
-    const tabbarClick = (e) => {
-      common_vendor.index.switchTab({
-        url: e.pagePath
-      });
-    };
     const tabsList = [
       {
         name: "关注"
@@ -67,32 +60,6 @@ const _sfc_main = {
       },
       {
         name: "手工"
-      }
-    ];
-    const tabList = [
-      {
-        pagePath: "/pages/home/home",
-        iconPath: "/static/home.png",
-        selectedIconPath: "/static/home_sec.png",
-        text: "首页",
-        name: "home",
-        icon: "home"
-      },
-      {
-        pagePath: "/pages/tool/home",
-        iconPath: "/static/home.png",
-        selectedIconPath: "/static/home_sec.png",
-        text: "工具",
-        name: "tool",
-        icon: "account"
-      },
-      {
-        pagePath: "/pages/user/home",
-        iconPath: "/static/user.png",
-        selectedIconPath: "/static/user_sec.png",
-        text: "我的",
-        name: "user",
-        icon: "account"
       }
     ];
     const imageList = common_vendor.ref([
@@ -224,28 +191,6 @@ const _sfc_main = {
               item
             })
           };
-        }),
-        l: common_vendor.f(tabList, (item, i, i0) => {
-          return {
-            a: item.selectedIconPath,
-            b: item.iconPath,
-            c: item.name,
-            d: common_vendor.o(($event) => tabbarClick(item), item.name),
-            e: "07e72d3c-8-" + i0 + ",07e72d3c-7",
-            f: common_vendor.p({
-              text: item.text,
-              name: item.name,
-              icon: item.icon
-            })
-          };
-        }),
-        m: common_vendor.o((name) => value1.value = name),
-        n: common_vendor.p({
-          activeColor: "#d81e06",
-          value: value1.value,
-          fixed: true,
-          placeholder: true,
-          safeAreaInsetBottom: true
         })
       };
     };

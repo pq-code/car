@@ -2,8 +2,8 @@
 import { showToast } from "../../utils/index"
 import { errTips } from '../error/errTips';
 
-let baseURL = 'http://localhost:4005/'
-// let baseURL = 'http://42.192.153.216:3005/api/'
+// let baseURL = 'http://localhost:4005/'
+let baseURL = 'http://42.192.153.216:3005/api/'
 let token = uni.getStorageSync('kxzc-token')
 
 export const wxService = (urls, config, method) => {

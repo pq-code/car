@@ -7,11 +7,11 @@ if (!Math) {
   "./pages/home/search.js";
   "./pages/home/searchList.js";
   "./pages/home/addDiary.js";
-  "./pages/addDetails/addcar.js";
   "./pages/user/home.js";
   "./pages/user/login.js";
   "./pages/user/editUserInfo.js";
   "./pages/tool/home.js";
+  "./pages/tool/addPage/addCar.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -27,9 +27,11 @@ const _sfc_main = {
 const App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "/Users/pq/code/car/App.vue"]]);
 function createApp() {
   const app = common_vendor.createSSRApp(App);
+  app.use(common_vendor.createPinia());
   app.use(common_vendor.uviewPlus);
   return {
-    app
+    app,
+    Pinia: common_vendor.Pinia
   };
 }
 createApp().app.mount("#app");

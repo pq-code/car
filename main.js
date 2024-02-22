@@ -1,6 +1,8 @@
 import App from './App'
 import uviewPlus from 'uview-plus'
 
+import * as Pinia from 'pinia';
+
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false
@@ -15,9 +17,11 @@ app.$mount()
 import { createSSRApp } from 'vue'
 export function createApp () {
     const app = createSSRApp(App)
-    app.use(uviewPlus)
+	app.use(Pinia.createPinia());
+    app.use(uviewPlus);
     return {
-        app
+        app,
+		Pinia
     }
 }
 // #endif

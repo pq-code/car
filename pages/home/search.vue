@@ -4,13 +4,16 @@ import pageSearch from "../../components/pageSearch/pageSearch.vue";
 
 const loading = ref(false);
 const keyword = ref();
+
 const searchFn = () => {
   loading.value = true;
   setInterval(() => (loading.value = false), 1000);
   uni.navigateTo({
     url: "searchList",
+	
   });
 };
+
 </script>
 <template>
   <pageSearch title="搜索">

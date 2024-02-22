@@ -13,11 +13,7 @@ const datalist2 = ref([]);
 const userAvatar = ref(); // 用户头像
 // const weather = ref({}); // 获取天气
 const navbarHeight = ref();
-const tabbarClick = (e) => {
-  uni.switchTab({
-    url: e.pagePath,
-  });
-};
+
 const tabsList = [
   {
     name: "关注",
@@ -47,32 +43,7 @@ const tabsList = [
     name: "手工",
   },
 ];
-const tabList = [
-  {
-    pagePath: "/pages/home/home",
-    iconPath: "/static/home.png",
-    selectedIconPath: "/static/home_sec.png",
-    text: "首页",
-    name: "home",
-    icon: "home",
-  },
-  {
-    pagePath: "/pages/tool/home",
-    iconPath: "/static/home.png",
-    selectedIconPath: "/static/home_sec.png",
-    text: "工具",
-    name: "tool",
-    icon: "account",
-  },
-  {
-    pagePath: "/pages/user/home",
-    iconPath: "/static/user.png",
-    selectedIconPath: "/static/user_sec.png",
-    text: "我的",
-    name: "user",
-    icon: "account",
-  },
-];
+
 
 const imageList = ref([
   {
@@ -151,6 +122,7 @@ const addDiaryFn = () => {
     url: "addDiary",
   });
 };
+
 const onpen = () => {
   uni.navigateTo({
     url: "listDetails",
@@ -259,35 +231,7 @@ const tabsClick = (item) => {
         </ul>
       </view>
     </view>
-
-    <u-tabbar
-      activeColor="#d81e06"
-      :value="value1"
-      @change="(name) => (value1 = name)"
-      :fixed="true"
-      :placeholder="true"
-      :safeAreaInsetBottom="true"
-    >
-      <u-tabbar-item
-        v-for="(item, i) in tabList"
-        :key="item.name"
-        :text="item.text"
-        :name="item.name"
-        @click="tabbarClick(item)"
-        :icon="item.icon"
-      >
-        <image
-          class="bar_img"
-          slot="active-icon"
-          :src="item.selectedIconPath"
-        ></image>
-        <image
-          class="bar_img"
-          slot="inactive-icon"
-          :src="item.iconPath"
-        ></image>
-      </u-tabbar-item>
-    </u-tabbar>
+	<tabbar></tabbar>
   </view>
 </template>
 

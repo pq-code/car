@@ -62,15 +62,17 @@
                 "enablePullDownRefresh": false,
                 "navigationStyle": "custom"
             }
-        }, {
-            "path": "pages/addDetails/addcar",
-            "name": "addDetails.addcar",
-            "style": {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false,
-                "navigationStyle": "custom"
-            }
-        }, {
+        }, 
+		// {
+  //           "path": "pages/addDetails/addcar",
+  //           "name": "addDetails.addcar",
+  //           "style": {
+  //               "navigationBarTitleText": "",
+  //               "enablePullDownRefresh": false,
+  //               "navigationStyle": "custom"
+  //           }
+  //       }, 
+		{
             "path": "pages/user/home",
             "name": "user.home",
             "style": {
@@ -103,22 +105,35 @@
                 "enablePullDownRefresh": false,
                 "navigationStyle": "custom"
             }
+        },
+        {
+        	"path" : "pages/tool/addPage/addCar",
+			"name": "tool.addCar",
+        	"style" : 
+        	{
+        		"navigationBarTitleText": "",
+        		"enablePullDownRefresh": false,
+        		"navigationStyle": "custom"
+        	}
         }
 
     ],
     "tabBar": {
 		"color": "#1e1e1e",
-		
+	    "selectedColor": "#0aa671",
+		"borderStyle": "white",
         "custom": true,
         "list": [{
                 "pagePath": "pages/home/home",
 				"text": "首页"
             },
             {
-                "pagePath": "pages/tool/home"
+                "pagePath": "pages/tool/home",
+				"text": "工具"
             },
             {
-                "pagePath": "pages/user/home"
+                "pagePath": "pages/user/home",
+				"text": "我的"
             }
         ]
     },
