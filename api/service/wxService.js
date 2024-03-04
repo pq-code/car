@@ -1,12 +1,20 @@
-
-import { showToast } from "../../utils/index"
+import { getSetting, getLoginFn, showToast } from "@/utils/index.js";
 import { errTips } from '../error/errTips';
 
 // let baseURL = 'http://localhost:4005/'
-let baseURL = 'http://42.192.153.216:3005/api/'
-let token = uni.getStorageSync('kxzc-token')
+
+let baseURL = 'https://pqartstation.cn/'
+
+let token = uni.getStorageSync('token')
 
 export const wxService = (urls, config, method) => {
+
+    // if (urls.indexOf('wx/users') !== -1) {
+    //     baseURL = 'http://192.168.13.191:4005/'
+    // } else {
+    //     baseURL = 'http://192.168.13.191:3005/'
+    // }
+    
     let url = baseURL + urls
 
     let data = {
@@ -41,6 +49,13 @@ export const wxService = (urls, config, method) => {
                 const res = data.data
                 if (res.code == 0) {
                     resolve(res)
+                } else if (res.error == '10101') {
+                    showToast('token已过期重新登录');
+                    getSetting("scope.record").then((res) => {
+                        getLoginFn().then((res) => {
+                            console.log("res", res);
+                        });
+                    });
                 } else {
                     showToast(errTips[res.code] || res.message || '未知错误');
                 }
@@ -53,6 +68,11 @@ export const wxService = (urls, config, method) => {
                     case 401:
                         message = 'token 失效，请重新登录';
                         // 这里可以触发退出的 action
+                        getSetting("scope.record").then((res) => {
+                            getLoginFn().then((res) => {
+                                console.log("res", res);
+                            });
+                        });
                         break;
                     case 403:
                         message = '拒绝访问';

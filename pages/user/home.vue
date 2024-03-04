@@ -18,13 +18,12 @@ const editUser = () => {
 
 const editUserInfo = () => { };
 onLoad(() => {
-    const { user_info } = uni.getStorageSync('userInfo');
-    if (user_info) {
-        formData.value.userAvatar = user_info.avatarUrl;
-        formData.value.userName = user_info.nickName;
-        formData.value.province = user_info.province;
-        formData.value.sex = user_info.gender;
-    }
+    const { user_nickname,user_profile_photo } = uni.getStorageSync('userInfo');
+    formData.value.userAvatar = user_profile_photo;
+    formData.value.userName = user_nickname;
+    // formData.value.province = user_info.province;
+    // formData.value.sex = user_info.gender;
+	console.log( uni.getStorageSync('userInfo'))
 });
 </script>
 
@@ -33,11 +32,11 @@ onLoad(() => {
         <view class="content-heard">
             <u-image @click="editUser()"
                      :showLoading="true"
-                     :src="userAvatar"
+                     :src="formData.userAvatar"
                      width="80px"
                      height="80px"
                      shape="circle"></u-image>
-            <view class="user-name">{{ formData.userName ? formData.userName : '用户名' }}</view>
+            <view class="user-name">{{ formData.userName || '用户名' }}</view>
         </view>
 
         <view class="content-main"
@@ -75,7 +74,7 @@ onLoad(() => {
         height: 100px;
         position: sticky;
         // #ifdef MP-WEIXIN
-        margin-top: 50px;
+        margin-top: 90px;
         // #endif
         margin-bottom: 10px;
         flex-direction: row;

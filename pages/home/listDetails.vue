@@ -1,10 +1,14 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { onLoad } from "@dcloudio/uni-app";
+import dayjs from "dayjs";
 
-const imageSrc = ref();
-onLoad((src) => {
-  imageSrc.value = src.src;
+let form = ref({});
+onLoad((data) => {
+  if (data != null) {
+    form.value = JSON.parse(data.data);
+  }
+  console.log(form.value);
 });
 </script>
 <template>
@@ -15,6 +19,12 @@ onLoad((src) => {
     }"
   >
     <view class="listDetails-center-heard">
+		<view class="listDetails-center-main-title">
+		  {{ form.articleTitle }}
+		</view>
+		<view class="listDetails-center-main-text">
+		  {{ form.describe }}
+		</view>
       <u-swiper
         :list="[
           'https://cdn.uviewui.com/uview/swiper/swiper1.png',
@@ -27,93 +37,57 @@ onLoad((src) => {
       ></u-swiper>
     </view>
     <view class="listDetails-center-main">
-      <view class="listDetails-center-main-title"> 阿斯顿阿斯顿你的呢 </view>
-      <view class="listDetails-center-main-text">
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒 /n
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，你打算，反思，能否撒，每年的撒，买的那双，你懂撒
-      </view>
       <view class="listDetails-center-main-bottom">
-        发布时间：{{ "10个小时前" }}
+        发布时间：{{ dayjs(form.createdAt).format("YYYY-MM-DD") }}
       </view>
-      <view class="listDetails-center-main-unifiedTemplate" v-if="false">
-        阿斯顿阿斯顿你的呢,asfmas,mdfas,fndas,nd啊
-        ，打死，的弥撒，到那时，到那时，电脑啊，是你的吗什么，到那时，你打
-        算，到那时，
-      </view>
+	  <view class="listDetails-center-main-unifiedTemplate" >
+	  </view>
     </view>
   </pageSearch>
 </template>
 <style lang="less" scoped>
 .listDetails-center-heard {
   // height: 260px;
-}
-
-.listDetails-center-main {
-  flex: 1;
-  padding: 10px;
-
   .listDetails-center-main-title {
-    font-size: 15px;
+	padding: 10px;
+    font-size: 40rpx;
     font-weight: 600;
     color: rgb(28, 28, 28);
     white-space: normal;
     word-wrap: break-word;
     line-height: 1.5;
   }
-
+  
   .listDetails-center-main-text {
+    padding: 0px 10px 10px 10px;
     width: 100%;
     line-height: 1.5;
-    font-size: 14px;
+    font-size: 33rpx;
     font-weight: 500;
     color: rgb(58, 58, 58);
     white-space: normal;
     word-wrap: break-word;
-    margin-top: 10px;
   }
+}
+
+.listDetails-center-main {
+  flex: 1;
+  padding: 10px;
 
   .listDetails-center-main-bottom {
     width: 100%;
-    font-size: 12px;
+    font-size: 25rpx;
     font-weight: 500;
     color: rgb(134, 134, 134);
     white-space: normal;
     word-wrap: break-word;
-    margin-top: 20px;
+    margin: 10px 0;
   }
 
   .listDetails-center-main-unifiedTemplate {
     width: calc(100% - 20px);
     height: 100px;
-    background-color: antiquewhite;
+    background-color: #ebebeb;
     border-radius: 6px;
     padding: 10px;
   }

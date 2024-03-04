@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from "vue";
-import { onLoad } from "@dcloudio/uni-app";
-import { getSetting, getLoginFn } from "../../utils/index";
+import { onLoad, onPullDownRefresh, onShow } from "@dcloudio/uni-app";
+import { getSetting, getLoginFn } from "@/utils/index.js";
+import { getUsedCarList } from "@/api/apis/usedCar.js";
 import dayjs from "dayjs";
 import listCard from "./components/listCard.vue";
 
@@ -14,70 +15,35 @@ const userAvatar = ref(); // 用户头像
 // const weather = ref({}); // 获取天气
 const navbarHeight = ref();
 
+const status = ref("loadmore");
+const iconType = ref("flower");
+const loadText = ref("暂无数据点击加载更多");
+
 const tabsList = [
   {
-    name: "关注",
+    name: "二手车",
   },
   {
-    name: "日期",
+    name: "顺风车",
   },
   {
-    name: "电影",
+    name: "本地服务",
   },
   {
-    name: "科技",
+    name: "本地商家",
   },
   {
-    name: "音乐",
+    name: "房屋租售",
   },
   {
-    name: "美食",
+    name: "求职招聘",
   },
   {
-    name: "文化",
-  },
-  {
-    name: "财经",
-  },
-  {
-    name: "手工",
+    name: "农林畜牧",
   },
 ];
 
-
-const imageList = ref([
-  {
-    src: "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-    title: "标题1",
-    details: "萨达啊但的多撒点萨达啊但是大的多撒点",
-  },
-  {
-    src: "https://cdn.uviewui.com/uview/album/1.jpg",
-    title: "标题2",
-    details:
-      "萨达啊但是大的多撒点萨达啊但是大的多撒点,萨达啊但是大的多撒点萨达啊但是大的多撒点",
-  },
-  {
-    src: "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-    title: "标题",
-    details: "萨达啊但是大的多撒点萨达啊但是大的多撒点",
-  },
-  {
-    src: "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-    title: "标题",
-    details: "萨达啊但是大的多撒点萨达啊但是大的多撒点",
-  },
-  {
-    src: "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
-    title: "标题",
-    details: "萨达啊但是大的多撒点萨达啊但是大的多撒点",
-  },
-  {
-    src: "https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg",
-    title: "标题",
-    details: "的多撒点萨达啊但是大的多撒点",
-  },
-]);
+const imageList = ref([]);
 
 // 获取天气
 // const getWeather = () => {
@@ -100,6 +66,8 @@ const imageList = ref([
 // };
 
 const init = () => {
+  datalist1.value = [];
+  datalist2.value = [];
   let i = 0;
   while (i < imageList.value.length) {
     datalist1.value.push(imageList.value[i]);
@@ -123,14 +91,17 @@ const addDiaryFn = () => {
   });
 };
 
-const onpen = () => {
+const onpen = (item) => {
   uni.navigateTo({
-    url: "listDetails",
+    url: `listDetails?projectId${item.projectId}`,
   });
 };
 
-onLoad(() => {
-  init();
+onPullDownRefresh(() => {
+  console.log("下拉刷新");
+});
+
+onShow(() => {
   uni.getSystemInfo({
     success: (e) => {
       // #ifdef MP-WEIXIN
@@ -148,26 +119,68 @@ onLoad(() => {
   //   }
 
   // 判断是否已经登录
-  uni.checkSession({
-    success(res) {
-      console.log("当前登录未失效，不需要重新登录");
-    },
-    fail: (err) => {
-      console.log("当前登录已经失效重新登录");
-      getSetting("scope.record").then((res) => {
-        getLoginFn().then((res) => {
-          userAvatar.value = res.result.user_profile_photo;
-        });
+  // uni.checkSession({
+  //   success(res) {
+  //     console.log("当前登录未失效，不需要重新登录");
+  //   },
+  //   fail: (err) => {
+  //     console.log("当前登录已经失效重新登录");
+  //     getSetting("scope.record").then((res) => {
+  //       getLoginFn().then((res) => {
+  //         userAvatar.value = res.result.user_profile_photo;
+  //         console.log("userAvatar", userAvatar);
+  //       });
+  //     });
+  //     const { user_profile_photo } = uni.getStorageSync("userInfo");
+  //     userAvatar.value = user_profile_photo;
+  //   },
+  // });
+
+  if (!uni.getStorageSync("token")) {
+    console.log("当前登录已经失效重新登录");
+    // #ifdef MP-WEIXIN
+    getSetting("scope.record").then((res) => {
+      getLoginFn().then((res) => {
+        getDataListFn();
       });
-      const { user_profile_photo } = uni.getStorageSync("userInfo");
-      userAvatar.value = user_profile_photo;
-    },
-  });
+    });
+    // #endif
+    const { user_profile_photo } = uni.getStorageSync("userInfo");
+    userAvatar.value = user_profile_photo;
+  } else {
+    getDataListFn();
+  }
 });
 
 const onPageScroll = (e) => {};
 const tabsClick = (item) => {
   console.log("item", item);
+};
+
+// 获取文件列表
+const getDataListFn = () => {
+  getUsedCarList()
+    .then((res) => {
+      let data = res.result;
+      status.value = "loadmore";
+      if (data.count == 0) {
+        status.value = "nomore";
+        loadText.value = "没有更多数据了";
+        console.log("没有更多数据了", res.result.rows);
+      }
+      imageList.value = data.rows;
+      init();
+    })
+    .catch((err) => {
+      status.value = "loadmore";
+      console.log("err", err);
+    });
+};
+
+// 加载前值为loadmore，加载中为loading，没有数据为nomore
+const onReachBottom = () => {
+  status.value = "loading";
+  getDataListFn();
 };
 </script>
 
@@ -176,11 +189,19 @@ const tabsClick = (item) => {
     <u-navbar fixed placeholder>
       <template #left>
         <view style="width: 100%; display: flex">
-          <!-- <view style="line-height: 34px; margin-left: 10px"> 标题 </view> -->
+          <u-search
+            placeholder="搜索"
+            disabled
+            :show-action="false"
+            :animation="false"
+            @click="searchFn"
+            @custom="searchFn"
+            v-model="keyword"
+          ></u-search>
         </view>
       </template>
       <template #center>
-        <u-search
+        <!-- <u-search
           placeholder="搜索"
           disabled
           :show-action="false"
@@ -188,12 +209,13 @@ const tabsClick = (item) => {
           @click="searchFn"
           @custom="searchFn"
           v-model="keyword"
-        ></u-search>
+        ></u-search> -->
       </template>
       <template #right>
         <!-- <view>1212</view> -->
       </template>
     </u-navbar>
+
     <u-sticky :offset-top="navbarHeight" bgColor="#fff">
       <u-tabs :list="tabsList" @click="tabsClick"></u-tabs>
     </u-sticky>
@@ -216,7 +238,6 @@ const tabsClick = (item) => {
         <ul class="ul">
           <list-card
             v-for="(item, index) in datalist1"
-            @click="onpen(item)"
             :key="`left-${index}`"
             :item="item"
           />
@@ -224,14 +245,19 @@ const tabsClick = (item) => {
         <ul class="ul">
           <list-card
             v-for="(item, index) in datalist2"
-            @click="onpen(item)"
             :key="`left-${index}`"
             :item="item"
           />
         </ul>
       </view>
     </view>
-	<tabbar></tabbar>
+    <u-loadmore
+      @loadmore="onReachBottom"
+      :status="status"
+      :icon-type="iconType"
+      :load-text="loadText"
+    />
+    <tabbar></tabbar>
   </view>
 </template>
 
@@ -242,6 +268,7 @@ const tabsClick = (item) => {
   align-items: center;
   height: calc(100vh - 20px);
   flex-wrap: nowrap;
+  background: #f0efef;
   .content-heard {
     display: flex;
     width: 100%;
@@ -312,7 +339,12 @@ const tabsClick = (item) => {
       background-color: rgb(255, 174, 124);
       margin-bottom: 10px;
     }
-
+    .noData {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+    }
     .content-main-list {
       display: grid;
       grid-template-columns: 1fr 1fr;

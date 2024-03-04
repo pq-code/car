@@ -5,11 +5,18 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  dayjs:
+    specifier: ^1.11.10
+    version: 1.11.10
   uview-plus:
     specifier: ^3.1.29
     version: registry.npmmirror.com/uview-plus@3.1.41
 
 packages:
+
+  /dayjs@1.11.10:
+    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==, tarball: https://registry.npmmirror.com/dayjs/-/dayjs-1.11.10.tgz}
+    dev: false
 
   registry.npmmirror.com/clipboard@2.0.11:
     resolution: {integrity: sha512-C+0bbOqkezLIsmWSvlsXS0Q0bmkugu7jcfMIACB+RDEntIzQIkdr148we28AfSloQLRdZlYL/QYyrq05j/3Faw==, tarball: https://registry.npmmirror.com/clipboard/-/clipboard-2.0.11.tgz}
@@ -19,12 +26,6 @@ packages:
       good-listener: registry.npmmirror.com/good-listener@1.2.2
       select: registry.npmmirror.com/select@1.1.2
       tiny-emitter: registry.npmmirror.com/tiny-emitter@2.1.0
-    dev: false
-
-  registry.npmmirror.com/dayjs@1.11.10:
-    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==, tarball: https://registry.npmmirror.com/dayjs/-/dayjs-1.11.10.tgz}
-    name: dayjs
-    version: 1.11.10
     dev: false
 
   registry.npmmirror.com/delegate@3.2.0:
@@ -60,5 +61,5 @@ packages:
     engines: {HBuilderX: ^3.1.0}
     dependencies:
       clipboard: registry.npmmirror.com/clipboard@2.0.11
-      dayjs: registry.npmmirror.com/dayjs@1.11.10
+      dayjs: 1.11.10
     dev: false

@@ -7,6 +7,7 @@
     "u-tabs": "../../uni_modules/uview-plus/components/u-tabs/u-tabs",
     "u-sticky": "../../uni_modules/uview-plus/components/u-sticky/u-sticky",
     "u-swiper": "../../uni_modules/uview-plus/components/u-swiper/u-swiper",
+    "u-loadmore": "../../uni_modules/uview-plus/components/u-loadmore/u-loadmore",
     "tabbar": "../../components/tabbar/tabbar",
     "list-card": "./components/listCard"
   }

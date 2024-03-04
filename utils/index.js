@@ -62,37 +62,25 @@ export const getLoginFn = () => {
             });
         });
     };
-    return new Promise((resolve, reject) => {
-        Promise.all([login(), getUserInfo()])
-            .then(async (res) => {
-                if (res[0].code) {
-                    // 连接本地后端接口
-                    try {
-                        const data = await armorTransformation({
-                            authInfo: {
-                                code: res[0].code,
-                                userInfo: res[1]
-                            }
-                        })
-                        //登录成功
-                        // showToast('登录成功');
-                        const { is_admins, token, user_id, user_nickname, user_profile_photo, user_info } = data.result
-                        uni.setStorageSync('kxzc-token', token);
-                        uni.setStorageSync('userInfo', { is_admins, user_id, user_nickname, user_profile_photo, user_info });
-                        resolve(data)
-
-                    } catch (err) {
-                        console.log(err);
-                        reject(err);
-                    }
-                } else {
+    return Promise.all([login(), getUserInfo()])
+        .then(async (res) => {
+            if (res[0].code) {
+                // 连接本地后端接口
+                try {
+                    const data = await armorTransformation({
+                        authInfo: {
+                            code: res[0].code,
+                            userInfo: res[1]
+                        }
+                    })
+                    //登录成功
+                    showToast('登录成功');
+                    const { is_admins, token, user_id, user_nickname, user_profile_photo, user_info } = data.result
+                    uni.setStorageSync('token', token);
+                    uni.setStorageSync('userInfo', { is_admins, user_id, user_nickname, user_profile_photo, user_info });
+                } catch (err) {
                     console.log(err);
-                    reject(err);
                 }
-            })
-            .catch((err) => {
-                console.log(err);
-                reject(err);
-            });
-    })
+            } 
+        })
 }

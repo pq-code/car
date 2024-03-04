@@ -14,6 +14,7 @@ const props = defineProps({
         },
     },
 });
+
 const leftClick = () => {
     console.log(props.backUrl)
     if (props.backUrl == '') {
@@ -25,6 +26,7 @@ const leftClick = () => {
         });
     }
 };
+
 </script>
 <template>
     <view class="page">

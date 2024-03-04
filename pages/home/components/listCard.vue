@@ -1,5 +1,6 @@
 <script setup>
 import { ref, defineProps } from "vue";
+import dayjs from "dayjs";
 const props = defineProps({
   item: {
     type: Object,
@@ -7,9 +8,9 @@ const props = defineProps({
   },
 });
 
-const onpen = () => {
+const onpen = (item) => {
   uni.navigateTo({
-    url: "listDetails",
+    url: `listDetails?data=${JSON.stringify(item)}`,
   });
 };
 </script>
@@ -21,21 +22,24 @@ const onpen = () => {
         :showLoading="true"
         :lazyLoad="true"
         radius="6px 6px 0 0"
-        :src="props.item?.src"
+        :src="item?.src"
         width="100%"
       ></u-image>
     </view>
     <view class="text">
-      <view class="text-title">{{ props.item.title }}</view>
-      <view class="text-details">{{ props.item.details }}</view>
+      <view class="text-title">{{ item.articleTitle }}</view>
+      <!-- <view class="text-details">{{ item.details }}</view> -->
     </view>
     <view class="button-icon">
       <view class="left-icon">
-        <u-icon name="star" color="#6d6d6d" size="19"></u-icon>
-        <u-icon name="heart" color="#6d6d6d" size="19"></u-icon>
+        <u-icon name="star" color="#6d6d6d" size="20"></u-icon>
+        <u-icon name="heart" color="#6d6d6d" size="20"></u-icon>
+        <u-icon name="man-add" color="#6d6d6d" size="20"></u-icon>
       </view>
       <view class="right-icon">
-        <u-icon name="man-add" color="#6d6d6d" size="19"></u-icon>
+        <view class="right-time">{{
+          dayjs(item.createdAt).format("YYYY-MM-DD")
+        }}</view>
       </view>
     </view>
   </view>
@@ -43,13 +47,16 @@ const onpen = () => {
 
 <style scoped lang="less">
 .listCard {
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-content: space-around;
   // background-color: rgb(219, 219, 219);
   margin-bottom: 10px;
   border-radius: 10px;
+  background: #ffffff;
   .listCard-image {
+    max-height: 200px;
     overflow: hidden;
     border-radius: 6px;
   }
@@ -71,12 +78,21 @@ const onpen = () => {
   }
   .button-icon {
     display: flex;
+    justify-content: space-between;
     height: 20px;
     width: 100%;
-    margin-top: 7px;
+    // margin-top: 7px;
     // background: #6d6d6d;
     .left-icon {
       display: flex;
+      flex-direction: column;
+      flex-direction: row;
+    }
+    .right-icon {
+      display: flex;
+      .right-time {
+        font-size: 0.8rem;
+      }
     }
   }
 }

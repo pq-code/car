@@ -9,9 +9,8 @@ const http = {
     return requset(url, config, "post");
   }
 };
-function requset(url, config, method) {
-  const { hideLoading } = config;
-  if (!hideLoading) {
+function requset(url, config = {}, method) {
+  if (config && !config.hideLoading) {
     common_vendor.index.showLoading({
       title: "加载中..."
     });

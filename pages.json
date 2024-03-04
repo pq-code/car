@@ -115,8 +115,67 @@
         		"enablePullDownRefresh": false,
         		"navigationStyle": "custom"
         	}
-        }
-
+        },
+		{
+			"path" : "pages/tool/addPage/freeRide",
+			"name": "tool.freeRide",
+			"style" : 
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/tool/addPage/sameCityService",
+			"name": "tool.sameCityService",
+			"style" : 
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/tool/addPage/merchantMerchants",
+			"name": "tool.merchantMerchants",
+			"style" : 
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/tool/addPage/housingSales",
+			"name": "tool.housingSales",
+			"style" : 
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/tool/addPage/employment",
+			"name": "tool.employment",
+			"style" : 
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/tool/addPage/agriculture",
+			"name": "tool.agriculture",
+			"style" : 
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		}
     ],
     "tabBar": {
 		"color": "#1e1e1e",

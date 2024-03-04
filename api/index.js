@@ -1,8 +1,4 @@
-
-
 import { wxService } from './service/wxService'
-
-
 
 export const http = {
     get: (url, config) => {
@@ -13,10 +9,10 @@ export const http = {
     },
 }
 
-export default function requset (url, config, method) {
-    const { hideLoading } = config
+export default function requset(url, config = {}, method) {
+    // const { hideLoading } = config
     //加载圈
-    if (!hideLoading) {
+    if (config && !config.hideLoading) {
         uni.showLoading({
             title: '加载中...'
         });

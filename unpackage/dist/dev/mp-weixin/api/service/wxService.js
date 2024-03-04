@@ -2,8 +2,8 @@
 const common_vendor = require("../../common/vendor.js");
 const utils_index = require("../../utils/index.js");
 const api_error_errTips = require("../error/errTips.js");
-let baseURL = "http://42.192.153.216:3005/api/";
-let token = common_vendor.index.getStorageSync("kxzc-token");
+let baseURL = "https://pqartstation.cn/";
+let token = common_vendor.index.getStorageSync("token");
 const wxService = (urls, config, method) => {
   let url = baseURL + urls;
   let data = {
@@ -36,6 +36,13 @@ const wxService = (urls, config, method) => {
         const res = data2.data;
         if (res.code == 0) {
           resolve(res);
+        } else if (res.error == "10101") {
+          utils_index.showToast("token已过期重新登录");
+          utils_index.getSetting("scope.record").then((res2) => {
+            utils_index.getLoginFn().then((res3) => {
+              console.log("res", res3);
+            });
+          });
         } else {
           utils_index.showToast(api_error_errTips.errTips[res.code] || res.message || "未知错误");
         }
@@ -45,6 +52,11 @@ const wxService = (urls, config, method) => {
         switch (err) {
           case 401:
             message = "token 失效，请重新登录";
+            utils_index.getSetting("scope.record").then((res) => {
+              utils_index.getLoginFn().then((res2) => {
+                console.log("res", res2);
+              });
+            });
             break;
           case 403:
             message = "拒绝访问";

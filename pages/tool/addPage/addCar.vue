@@ -1,225 +1,309 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
+import { onShow } from "@dcloudio/uni-app";
 import pageSearch from "@/components/pageSearch/pageSearch.vue";
+import dayjs from "dayjs";
+import { addusedCar } from "@/api/apis/usedCar.js";
 
-const registrationTimeShow = ref(false)
+const registrationTimeShow = ref(false);
+const inspectAnnuallyShow = ref(false);
+const formRef = ref();
 
-const model = {
-	vehicleBrand:'',
-	userInfoName: '',
-	describe: '',
-	telephone:'',
-	weChatId:'',
-	fileList:[],
-	registrationTime:[],
-	kilometers:''
-}
-
+const model = reactive({
+  articleTitle: "",
+  vehicleBrand: "",
+  userInfoName: "",
+  describe: "",
+  telephone: "",
+  weChatId: "",
+  fileList: [],
+  registrationTime: "",
+  inspectAnnually: "",
+  kilometers: "",
+});
+const rules = {
+  // 字段名称
+  "model.describe": {
+    type: "string",
+    required: true,
+    message: "请填写车辆描述",
+    trigger: ["blur"],
+  },
+  "model.vehicleBrand": {
+    type: "string",
+    required: true,
+    message: "请填写车辆品牌",
+    trigger: ["blur"],
+  },
+  "model.userInfoName": {
+    type: "string",
+    required: true,
+    message: "请填写联系人",
+    trigger: ["blur"],
+  },
+  "model.telephone": [
+    // {
+    //   required: true,
+    //   message: "请输入手机号",
+    //   trigger: ["change", "blur"],
+    // },
+    {
+      validator: (rule, value, callback) => {
+        // 上面有说，返回true表示校验通过，返回false表示不通过
+        // this.$u.test.mobile()就是返回true或者false的
+        return uni.$u.test.telephone(true);
+      },
+      message: "手机号码不正确",
+      // 触发器可以同时用blur和change
+      trigger: ["change", "blur"],
+    },
+  ],
+};
 // 删除图片
-const deletePic = (event)=> {
-	this[`fileList${event.name}`].splice(event.index, 1)
-}
+const deletePic = (event: any) => {
+  model.fileList.splice(event.index, 1);
+};
 // 新增图片
-const afterRead = async(event) => {
-	// 当设置 multiple 为 true 时, file 为数组格式，否则为对象格式
-	let lists = [].concat(event.file)
-	console.log(event.name,lists)
-	debugger
-	let fileListLen = this[`fileList${event.name}`].length
-	lists.map((item) => {
-		this[`fileList${event.name}`].push({
-			...item,
-			status: 'uploading',
-			message: '上传中'
-		})
-	})
-	for (let i = 0; i < lists.length; i++) {
-		const result = await uploadFilePromise(lists[i].url)
-		let item = this[`fileList${event.name}`][fileListLen]
-		this[`fileList${event.name}`].splice(fileListLen, 1, Object.assign(item, {
-			status: 'success',
-			message: '',
-			url: result
-		}))
-		fileListLen++
-	}
-}
-const uploadFilePromise = (url)=> {
-	return new Promise((resolve, reject) => {
-		let a = uni.uploadFile({
-			url: 'http://192.168.2.21:7001/upload', // 仅为示例，非真实的接口地址
-			filePath: url,
-			name: 'file',
-			formData: {
-				user: 'test'
-			},
-			success: (res) => {
-				setTimeout(() => {
-					resolve(res.data.data)
-				}, 1000)
-			}
-		});
-	})
-}
+const afterRead = async (event: any) => {
+  // 当设置 multiple 为 true 时, file 为数组格式，否则为对象格式
+  let lists = [].concat(event.file);
+  let fileListLen = model.fileList.length;
+  lists.map((item) => {
+    model.fileList.push({
+      ...item,
+      status: "uploading",
+      message: "上传中",
+    });
+  });
+  for (let i = 0; i < lists.length; i++) {
+    const result = await uploadFilePromise(lists[i].url);
+    let item = model.fileList[fileListLen];
+    model.fileList.splice(
+      fileListLen,
+      1,
+      Object.assign(item, {
+        status: "success",
+        message: "",
+        url: result,
+      })
+    );
+    fileListLen++;
+  }
+};
+const uploadFilePromise = (url: any) => {
+  return new Promise((resolve, reject) => {
+    let a = uni.uploadFile({
+      url: "https://pqartstation.cn/api/canvas/upload",
+      // url: "http://localhost:3005/api/canvas/upload",
+      filePath: url,
+      name: "file",
+      formData: {
+        user: "test",
+      },
+      success: (res) => {
+        resolve(res.data.data);
+      },
+    });
+  });
+};
 
-const confirm = (e) => {
-	console.log(e);
-	model.registrationTime = e
-	registrationTimeShow.value = false
-}
+const registrationTimeConfirm = (e) => {
+  model.registrationTime = dayjs(e.value).format("YYYY-MM-DD");
+  registrationTimeShow.value = false;
+};
 
+const inspectAnnuallyConfirm = (e) => {
+  model.inspectAnnually = dayjs(e.value).format("YYYY-MM-DD");
+  inspectAnnuallyShow.value = false;
+};
+
+const kilometersRef = ref();
+
+const KeypadRef = ref();
+const KeypadRefShow = ref(false);
+
+const KeypadRefChange = (value) => {
+  console.log(value);
+  debugger;
+};
+const KeypadBackspace = (value) => {
+  console.log(value);
+  debugger;
+};
+
+onShow(() => {
+	console.log(formRef.value)
+  formRef.value.setRules(rules);
+});
+
+const submit = () => {
+  // formRef.value
+  //   .validate()
+  //   .then((res) => {
+      const { user_nickname, user_id } = uni.getStorageSync("userInfo");
+      let parse = {
+        fileList: JSON.stringify(model.fileList),
+        ...model,
+        publisherId: user_id,
+        publisherName: user_nickname,
+      };
+      console.log(parse, JSON.stringify(model.fileList));
+      addusedCar(parse)
+        .then((res) => {
+          console.log(res);
+          if (res.code == 0) {
+            uni.navigateBack({});
+          }
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    // })
+    // .catch((errors) => {
+    //   uni.$u.toast("请填写完整");
+    // });
+};
 </script>
 <template>
   <pageSearch title="发布二手车">
-	<view class="content-main">
-		<u-form
-			labelPosition="left"
-			:model="model"
-			labelWidth="70"
-			ref="form1"
-		>
-			<u-form-item
-				label="车辆品牌"
-				prop="vehicleBrand"
-				borderBottom
-				ref="item1"
-			>
-				<u-input
-					v-model="model.vehicleBrand"
-					border="none"
-				></u-input>
-			</u-form-item>
-			
-			<u-form-item
-				label="排量/变速"
-				prop="registrationTime"
-				borderBottom
-			>
-			</u-form-item>
-			
-			<u-form-item
-				label="所在城市"
-				prop="registrationTime"
-				borderBottom
-			>
-			</u-form-item>
-			
-			<u-form-item
-				label="公里数"
-				prop="kilometers"
-				borderBottom
-				ref="item1"
-			>
-				<u-input
-					v-model="model.kilometers"
-					border="none"
-				></u-input>
-			</u-form-item>
-			
-			<u-form-item
-				label="牌照归属"
-				prop="registrationTime"
-				borderBottom
-			>
-			</u-form-item>
-			
-			<u-form-item
-				label="车辆上牌时间"
-				prop="registrationTime"
-				borderBottom
-			>
-				<view @click="registrationTimeShow = true">
-					<u-calendar :show="registrationTimeShow" mode="single" @confirm="confirm"></u-calendar>
-					<u-input
-						v-model="model.registrationTime"
-						border="none"
-						disabled
-					></u-input>
-				</view>
-			</u-form-item>
-			
-			<u-form-item
-				label="年检到期时间"
-				prop="registrationTime"
-				borderBottom
-			>
-				<view @click="registrationTimeShow = true">
-					<u-calendar :show="registrationTimeShow" mode="single" @confirm="confirm"></u-calendar>
-					<u-input
-						v-model="model.registrationTime"
-						border="none"
-						disabled
-					></u-input>
-				</view>
-			</u-form-item>
-		
-			<u-form-item
-				label="车辆照片"
-				prop="model.fileList"
-				borderBottom
-				ref="item1"
-			>
-				<u-upload
-					:fileList="model.fileList"
-					@afterRead="afterRead"
-					@delete="deletePic"
-					multiple
-					:maxCount="6"
-				></u-upload>
-			</u-form-item>
-		
-			<u-form-item
-				label="描述"
-				prop="model.describe"
-				borderBottom
-				ref="item1"
-			>
-				<u-textarea v-model="model.describe" placeholder="请输入内容" ></u-textarea>
-			</u-form-item>
-			
-			<u-form-item
-				label="联系人"
-				prop="userInfoName"
-				borderBottom
-				ref="item1"
-			>
-				<u-input
-					v-model="model.userInfoName"
-					border="none"
-				></u-input>
-			</u-form-item>
-			
-			<u-form-item
-				label="联系电话"
-				prop="telephone"
-				borderBottom
-				ref="item1"
-			>
-				<u-input
-					v-model="model.telephone"
-					border="none"
-				></u-input>
-			</u-form-item>
-			<u-form-item
-				label="微信号"
-				prop="weChatId"
-				borderBottom
-				ref="item1"
-			>
-				<u-input
-					v-model="model.weChatId"
-					border="none"
-				></u-input>
-			</u-form-item>
-		</u-form>
-	</view>
-	<view style="padding: 20px;">
-		<u-button type="primary" text="发布"></u-button>
-	</view>
+    <view class="content-main">
+      <u-form
+        labelPosition="left"
+        :model="model"
+        labelWidth="100"
+        ref="formRef"
+        :rules="rules"
+      >
+        <u-form-item
+          label="标题"
+          prop="model.articleTitle"
+          borderBottom
+          ref="articleTitle"
+        >
+          <u-input v-model="model.articleTitle" border="none"></u-input>
+        </u-form-item>
+        <u-form-item label="" prop="model.describe" borderBottom ref="describe">
+          <u-textarea
+            border=""
+            v-model="model.describe"
+            placeholder="请如实填写车况描述,买家都关心有无事故,外观有无剐蹭,上牌时间,过户次数等(15字以上)"
+          ></u-textarea>
+        </u-form-item>
+
+        <u-form-item label="" prop="model.fileList" borderBottom ref="fileList">
+          <u-upload
+            :fileList="model.fileList"
+            @afterRead="afterRead"
+            @delete="deletePic"
+            multiple
+            :maxCount="6"
+          ></u-upload>
+        </u-form-item>
+
+        <u-form-item
+          label="车辆品牌"
+          prop="model.vehicleBrand"
+          borderBottom
+          ref="item1"
+        >
+          <u-input v-model="model.vehicleBrand" border="none"></u-input>
+        </u-form-item>
+
+        <u-form-item label="排量/变速" prop="registrationTime" borderBottom>
+        </u-form-item>
+
+        <u-form-item label="所在城市" prop="registrationTime" borderBottom>
+        </u-form-item>
+
+        <u-form-item
+          label="公里数"
+          prop="kilometers"
+          borderBottom
+          ref="kilometersRef"
+        >
+          <view style="display: flex">
+            <u-input
+              v-model="model.kilometers"
+              border="none"
+              @focus="KeypadRefShow = true"
+              @change="KeypadRefChange"
+              @backspace="KeypadBackspace"
+            >
+            </u-input>
+            <view>公里</view>
+          </view>
+          <u-keyboard
+            ref="KeypadRef"
+            mode="number"
+            :show="KeypadRefShow"
+            :dotDisabled="true"
+          ></u-keyboard>
+        </u-form-item>
+        <u-form-item label="牌照归属" prop="registrationTime" borderBottom>
+        </u-form-item>
+
+        <u-form-item label="车辆上牌时间" prop="registrationTime" borderBottom>
+          <view @click="registrationTimeShow = true">
+            <u-datetime-picker
+              :show="registrationTimeShow"
+              mode="date"
+              @confirm="registrationTimeConfirm"
+            ></u-datetime-picker>
+            <u-input v-model="model.registrationTime" border="none"></u-input>
+          </view>
+        </u-form-item>
+
+        <u-form-item label="年检到期时间" prop="inspectAnnually" borderBottom>
+          <view @click="inspectAnnuallyShow = true">
+            <u-datetime-picker
+              :show="inspectAnnuallyShow"
+              mode="date"
+              @confirm="inspectAnnuallyConfirm"
+            ></u-datetime-picker>
+            <u-input v-model="model.inspectAnnually" border="none"></u-input>
+          </view>
+        </u-form-item>
+
+        <u-gap
+          height="13"
+          style="margin-top: 2px"
+          bgColor="rgba(177, 183, 191, 0.1)"
+        ></u-gap>
+
+        <u-form-item
+          label="联系人"
+          prop="model.userInfoName"
+          borderBottom
+          ref="item1"
+        >
+          <u-input v-model="model.userInfoName" border="none"></u-input>
+        </u-form-item>
+
+        <u-form-item
+          label="联系电话"
+          prop="model.telephone"
+          borderBottom
+          ref="item1"
+        >
+          <u-input v-model="model.telephone" border="none"></u-input>
+        </u-form-item>
+        <u-form-item
+          label="微信号"
+          prop="model.weChatId"
+          borderBottom
+          ref="item1"
+        >
+          <u-input v-model="model.weChatId" border="none"></u-input>
+        </u-form-item>
+      </u-form>
+    </view>
+    <view style="padding: 20px">
+      <u-button type="primary" text="发布" @click="submit"></u-button>
+    </view>
   </pageSearch>
 </template>
 <style lang="less" scoped>
-.content-main{
-	padding: 0 10px;
+.content-main {
+  padding: 0 10px;
 }
 </style>

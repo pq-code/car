@@ -12,6 +12,12 @@ if (!Math) {
   "./pages/user/editUserInfo.js";
   "./pages/tool/home.js";
   "./pages/tool/addPage/addCar.js";
+  "./pages/tool/addPage/freeRide.js";
+  "./pages/tool/addPage/sameCityService.js";
+  "./pages/tool/addPage/merchantMerchants.js";
+  "./pages/tool/addPage/housingSales.js";
+  "./pages/tool/addPage/employment.js";
+  "./pages/tool/addPage/agriculture.js";
 }
 const _sfc_main = {
   onLaunch: function() {

@@ -16,19 +16,19 @@ const _sfc_main = {
   __name: "home",
   setup(__props) {
     let list = [
-      { name: "顺风车" },
-      { name: "二手车" },
-      { name: "同城服务" },
-      { name: "同城商家" },
-      { name: "房屋租售" },
-      { name: "求职招聘" },
-      { name: "农林畜牧" }
+      { name: "二手车", router: "addPage/addCar" },
+      { name: "顺风车", router: "addPage/freeRide" },
+      { name: "本地服务", router: "addPage/sameCityService" },
+      { name: "本地商家", router: "addPage/merchantMerchants" },
+      { name: "房屋租售", router: "addPage/housingSales" },
+      { name: "求职招聘", router: "addPage/employment" },
+      { name: "农林畜牧", router: "addPage/agriculture" }
     ];
     common_vendor.onLoad(() => {
     });
-    const addPage = () => {
+    const addPage = (router) => {
       common_vendor.index.navigateTo({
-        url: "addPage/addCar"
+        url: router
       });
     };
     return (_ctx, _cache) => {
@@ -40,7 +40,8 @@ const _sfc_main = {
           return {
             a: "42baf874-1-" + i0,
             b: common_vendor.t(item.name),
-            c: common_vendor.o(($event) => addPage(item.name))
+            c: `${item.name}_${index}`,
+            d: common_vendor.o(($event) => addPage(item.router), `${item.name}_${index}`)
           };
         }),
         c: common_vendor.p({

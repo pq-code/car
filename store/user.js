@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 const useUserStore = defineStore('User', {
   state: () => {
     return {
-      activeTab: 1 // 默认选中的索引
+      activeTab: 0 // 默认选中的索引
     }
   },
   actions: {

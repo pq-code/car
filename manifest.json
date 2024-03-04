@@ -113,7 +113,10 @@
             "minified" : true
         },
         "usingComponents" : true,
-        "permission" : {}
+        "permission" : {},
+        "unipush" : {
+            "enable" : false
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true

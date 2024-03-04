@@ -15,9 +15,9 @@ const getSetting = (scope) => {
       success(data) {
         resolve(data);
       },
-      fail(err2) {
-        console.log(err2);
-        reject(err2);
+      fail(err) {
+        console.log(err);
+        reject(err);
       }
     });
   });
@@ -32,8 +32,8 @@ const getLoginFn = () => {
         success(res) {
           resolve(res);
         },
-        fail: (err2) => {
-          reject(err2);
+        fail: (err) => {
+          reject(err);
         }
       });
     });
@@ -48,38 +48,29 @@ const getLoginFn = () => {
         success(res) {
           resolve(res);
         },
-        fail: (err2) => {
-          reject(err2);
+        fail: (err) => {
+          reject(err);
         }
       });
     });
   };
-  return new Promise((resolve, reject) => {
-    Promise.all([login(), getUserInfo()]).then(async (res) => {
-      if (res[0].code) {
-        try {
-          const data = await api_apis_user.armorTransformation({
-            authInfo: {
-              code: res[0].code,
-              userInfo: res[1]
-            }
-          });
-          const { is_admins, token, user_id, user_nickname, user_profile_photo, user_info } = data.result;
-          common_vendor.index.setStorageSync("kxzc-token", token);
-          common_vendor.index.setStorageSync("userInfo", { is_admins, user_id, user_nickname, user_profile_photo, user_info });
-          resolve(data);
-        } catch (err2) {
-          console.log(err2);
-          reject(err2);
-        }
-      } else {
+  return Promise.all([login(), getUserInfo()]).then(async (res) => {
+    if (res[0].code) {
+      try {
+        const data = await api_apis_user.armorTransformation({
+          authInfo: {
+            code: res[0].code,
+            userInfo: res[1]
+          }
+        });
+        showToast("登录成功");
+        const { is_admins, token, user_id, user_nickname, user_profile_photo, user_info } = data.result;
+        common_vendor.index.setStorageSync("token", token);
+        common_vendor.index.setStorageSync("userInfo", { is_admins, user_id, user_nickname, user_profile_photo, user_info });
+      } catch (err) {
         console.log(err);
-        reject(err);
       }
-    }).catch((err2) => {
-      console.log(err2);
-      reject(err2);
-    });
+    }
   });
 };
 exports.getLoginFn = getLoginFn;

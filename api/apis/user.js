@@ -3,9 +3,9 @@
 import { http } from '../index'
 
 export const armorTransformation = (params) => {
-    return http.post('weixin/users/xcx/login', params);
+    return http.post('wx/users/xcx/login', params);
 };
 
 export const uploadFilePromise = (params) => {
-    return http.post('weixin/xcx/upload', params);
+    return http.post('wx/users/xcx/upload', params);
 };

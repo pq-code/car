@@ -9,7 +9,13 @@
     "pages/user/login",
     "pages/user/editUserInfo",
     "pages/tool/home",
-    "pages/tool/addPage/addCar"
+    "pages/tool/addPage/addCar",
+    "pages/tool/addPage/freeRide",
+    "pages/tool/addPage/sameCityService",
+    "pages/tool/addPage/merchantMerchants",
+    "pages/tool/addPage/housingSales",
+    "pages/tool/addPage/employment",
+    "pages/tool/addPage/agriculture"
   ],
   "window": {
     "navigationBarTextStyle": "black",

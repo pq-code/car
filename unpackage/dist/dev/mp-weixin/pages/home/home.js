@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const utils_index = require("../../utils/index.js");
+const api_apis_usedCar = require("../../api/apis/usedCar.js");
 require("../../api/apis/user.js");
 require("../../api/index.js");
 require("../../api/service/wxService.js");
@@ -11,17 +12,19 @@ if (!Array) {
   const _easycom_u_tabs2 = common_vendor.resolveComponent("u-tabs");
   const _easycom_u_sticky2 = common_vendor.resolveComponent("u-sticky");
   const _easycom_u_swiper2 = common_vendor.resolveComponent("u-swiper");
+  const _easycom_u_loadmore2 = common_vendor.resolveComponent("u-loadmore");
   const _easycom_tabbar2 = common_vendor.resolveComponent("tabbar");
-  (_easycom_u_search2 + _easycom_u_navbar2 + _easycom_u_tabs2 + _easycom_u_sticky2 + _easycom_u_swiper2 + _easycom_tabbar2)();
+  (_easycom_u_search2 + _easycom_u_navbar2 + _easycom_u_tabs2 + _easycom_u_sticky2 + _easycom_u_swiper2 + _easycom_u_loadmore2 + _easycom_tabbar2)();
 }
 const _easycom_u_search = () => "../../uni_modules/uview-plus/components/u-search/u-search.js";
 const _easycom_u_navbar = () => "../../uni_modules/uview-plus/components/u-navbar/u-navbar.js";
 const _easycom_u_tabs = () => "../../uni_modules/uview-plus/components/u-tabs/u-tabs.js";
 const _easycom_u_sticky = () => "../../uni_modules/uview-plus/components/u-sticky/u-sticky.js";
 const _easycom_u_swiper = () => "../../uni_modules/uview-plus/components/u-swiper/u-swiper.js";
+const _easycom_u_loadmore = () => "../../uni_modules/uview-plus/components/u-loadmore/u-loadmore.js";
 const _easycom_tabbar = () => "../../components/tabbar/tabbar.js";
 if (!Math) {
-  (_easycom_u_search + _easycom_u_navbar + _easycom_u_tabs + _easycom_u_sticky + _easycom_u_swiper + listCard + _easycom_tabbar)();
+  (_easycom_u_search + _easycom_u_navbar + _easycom_u_tabs + _easycom_u_sticky + _easycom_u_swiper + listCard + _easycom_u_loadmore + _easycom_tabbar)();
 }
 const listCard = () => "./components/listCard.js";
 const _sfc_main = {
@@ -33,68 +36,36 @@ const _sfc_main = {
     const datalist2 = common_vendor.ref([]);
     const userAvatar = common_vendor.ref();
     const navbarHeight = common_vendor.ref();
+    const status = common_vendor.ref("loadmore");
+    const iconType = common_vendor.ref("flower");
+    const loadText = common_vendor.ref("暂无数据点击加载更多");
     const tabsList = [
       {
-        name: "关注"
+        name: "二手车"
       },
       {
-        name: "日期"
+        name: "顺风车"
       },
       {
-        name: "电影"
+        name: "本地服务"
       },
       {
-        name: "科技"
+        name: "本地商家"
       },
       {
-        name: "音乐"
+        name: "房屋租售"
       },
       {
-        name: "美食"
+        name: "求职招聘"
       },
       {
-        name: "文化"
-      },
-      {
-        name: "财经"
-      },
-      {
-        name: "手工"
+        name: "农林畜牧"
       }
     ];
-    const imageList = common_vendor.ref([
-      {
-        src: "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-        title: "标题1",
-        details: "萨达啊但的多撒点萨达啊但是大的多撒点"
-      },
-      {
-        src: "https://cdn.uviewui.com/uview/album/1.jpg",
-        title: "标题2",
-        details: "萨达啊但是大的多撒点萨达啊但是大的多撒点,萨达啊但是大的多撒点萨达啊但是大的多撒点"
-      },
-      {
-        src: "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-        title: "标题",
-        details: "萨达啊但是大的多撒点萨达啊但是大的多撒点"
-      },
-      {
-        src: "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-        title: "标题",
-        details: "萨达啊但是大的多撒点萨达啊但是大的多撒点"
-      },
-      {
-        src: "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
-        title: "标题",
-        details: "萨达啊但是大的多撒点萨达啊但是大的多撒点"
-      },
-      {
-        src: "https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg",
-        title: "标题",
-        details: "的多撒点萨达啊但是大的多撒点"
-      }
-    ]);
+    const imageList = common_vendor.ref([]);
     const init = () => {
+      datalist1.value = [];
+      datalist2.value = [];
       let i = 0;
       while (i < imageList.value.length) {
         datalist1.value.push(imageList.value[i]);
@@ -110,37 +81,51 @@ const _sfc_main = {
         url: "search"
       });
     };
-    const onpen = () => {
-      common_vendor.index.navigateTo({
-        url: "listDetails"
-      });
-    };
-    common_vendor.onLoad(() => {
-      init();
+    common_vendor.onPullDownRefresh(() => {
+      console.log("下拉刷新");
+    });
+    common_vendor.onShow(() => {
       common_vendor.index.getSystemInfo({
         success: (e) => {
           navbarHeight.value = e.statusBarHeight + 44;
           console.log("height", navbarHeight.value);
         }
       });
-      common_vendor.index.checkSession({
-        success(res) {
-          console.log("当前登录未失效，不需要重新登录");
-        },
-        fail: (err) => {
-          console.log("当前登录已经失效重新登录");
-          utils_index.getSetting("scope.record").then((res) => {
-            utils_index.getLoginFn().then((res2) => {
-              userAvatar.value = res2.result.user_profile_photo;
-            });
+      if (!common_vendor.index.getStorageSync("token")) {
+        console.log("当前登录已经失效重新登录");
+        utils_index.getSetting("scope.record").then((res) => {
+          utils_index.getLoginFn().then((res2) => {
+            getDataListFn();
           });
-          const { user_profile_photo } = common_vendor.index.getStorageSync("userInfo");
-          userAvatar.value = user_profile_photo;
-        }
-      });
+        });
+        const { user_profile_photo } = common_vendor.index.getStorageSync("userInfo");
+        userAvatar.value = user_profile_photo;
+      } else {
+        getDataListFn();
+      }
     });
     const tabsClick = (item) => {
       console.log("item", item);
+    };
+    const getDataListFn = () => {
+      api_apis_usedCar.getUsedCarList().then((res) => {
+        let data = res.result;
+        status.value = "loadmore";
+        if (data.count == 0) {
+          status.value = "nomore";
+          loadText.value = "没有更多数据了";
+          console.log("没有更多数据了", res.result.rows);
+        }
+        imageList.value = data.rows;
+        init();
+      }).catch((err) => {
+        status.value = "loadmore";
+        console.log("err", err);
+      });
+    };
+    const onReachBottom = () => {
+      status.value = "loading";
+      getDataListFn();
     };
     return (_ctx, _cache) => {
       return {
@@ -174,23 +159,27 @@ const _sfc_main = {
         }),
         j: common_vendor.f(datalist1.value, (item, index, i0) => {
           return {
-            a: common_vendor.o(($event) => onpen(), `left-${index}`),
-            b: `left-${index}`,
-            c: "07e72d3c-5-" + i0,
-            d: common_vendor.p({
+            a: `left-${index}`,
+            b: "07e72d3c-5-" + i0,
+            c: common_vendor.p({
               item
             })
           };
         }),
         k: common_vendor.f(datalist2.value, (item, index, i0) => {
           return {
-            a: common_vendor.o(($event) => onpen(), `left-${index}`),
-            b: `left-${index}`,
-            c: "07e72d3c-6-" + i0,
-            d: common_vendor.p({
+            a: `left-${index}`,
+            b: "07e72d3c-6-" + i0,
+            c: common_vendor.p({
               item
             })
           };
+        }),
+        l: common_vendor.o(onReachBottom),
+        m: common_vendor.p({
+          status: status.value,
+          ["icon-type"]: iconType.value,
+          ["load-text"]: loadText.value
         })
       };
     };
