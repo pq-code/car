@@ -4,10 +4,11 @@ import { onShow } from "@dcloudio/uni-app";
 import pageSearch from "@/components/pageSearch/pageSearch.vue";
 import dayjs from "dayjs";
 import { addusedCar } from "@/api/apis/usedCar.js";
-
+import { host } from "@/config/index";
 const registrationTimeShow = ref(false);
 const inspectAnnuallyShow = ref(false);
 const formRef = ref();
+const waitFileList = reactive([]);
 
 const model = reactive({
   articleTitle: "",
@@ -59,49 +60,37 @@ const rules = {
     },
   ],
 };
+
 // 删除图片
 const deletePic = (event: any) => {
-  model.fileList.splice(event.index, 1);
+  waitFileList.splice(event.index, 1);
 };
+
 // 新增图片
 const afterRead = async (event: any) => {
   // 当设置 multiple 为 true 时, file 为数组格式，否则为对象格式
   let lists = [].concat(event.file);
-  let fileListLen = model.fileList.length;
+  // let fileListLen = model.fileList.length;
   lists.map((item) => {
-    model.fileList.push({
+    waitFileList.push({
       ...item,
       status: "uploading",
-      message: "上传中",
+      message: "待上传",
     });
   });
-  for (let i = 0; i < lists.length; i++) {
-    const result = await uploadFilePromise(lists[i].url);
-    let item = model.fileList[fileListLen];
-    model.fileList.splice(
-      fileListLen,
-      1,
-      Object.assign(item, {
-        status: "success",
-        message: "",
-        url: result,
-      })
-    );
-    fileListLen++;
-  }
 };
+
 const uploadFilePromise = (url: any) => {
   return new Promise((resolve, reject) => {
     let a = uni.uploadFile({
-      url: "https://pqartstation.cn/api/canvas/upload",
-      // url: "http://localhost:3005/api/canvas/upload",
+      url: host + "/wx/project/upload",
       filePath: url,
       name: "file",
       formData: {
         user: "test",
       },
       success: (res) => {
-        resolve(res.data.data);
+        resolve(JSON.parse(res.data).result);
       },
     });
   });
@@ -132,36 +121,74 @@ const KeypadBackspace = (value) => {
 };
 
 onShow(() => {
-	console.log(formRef.value)
+  console.log(formRef.value);
   formRef.value.setRules(rules);
 });
 
-const submit = () => {
+const submit = async () => {
   // formRef.value
   //   .validate()
   //   .then((res) => {
-      const { user_nickname, user_id } = uni.getStorageSync("userInfo");
-      let parse = {
-        fileList: JSON.stringify(model.fileList),
-        ...model,
-        publisherId: user_id,
-        publisherName: user_nickname,
-      };
-      console.log(parse, JSON.stringify(model.fileList));
-      addusedCar(parse)
-        .then((res) => {
-          console.log(res);
-          if (res.code == 0) {
-            uni.navigateBack({});
-          }
+
+  // 文件上传
+  try {
+    for (let i = 0; i < waitFileList.length; i++) {
+      const result = await uploadFilePromise(waitFileList[i].url);
+      let item = waitFileList[i];
+      waitFileList.splice(
+        i,
+        1,
+        Object.assign(item, {
+          status: "success",
+          message: "",
+          url: result?.img_name,
         })
-        .catch((err) => {
-          console.log("err", err);
-        });
-    // })
-    // .catch((errors) => {
-    //   uni.$u.toast("请填写完整");
-    // });
+      );
+      model.fileList.push(result);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
+  const { user_nickname, user_id } = uni.getStorageSync("userInfo");
+  let parse = {
+    ...model,
+    publisherId: user_id,
+    publisherName: user_nickname,
+  };
+
+  console.log(parse, model.fileList);
+
+  addusedCar(parse)
+    .then((res) => {
+      console.log(res);
+      if (res.code == 0) {
+        uni.navigateBack({});
+      }
+    })
+    .catch((err) => {
+      console.log("err", err);
+    });
+  // })
+  // .catch((errors) => {
+  //   uni.$u.toast("请填写完整");
+  // });
+};
+
+const valChange = (val) => {
+  // 将每次按键的值拼接到value变量中，注意+=写法
+
+  model.kilometers += val;
+  console.log(model.kilometers);
+  debugger;
+};
+
+const backspace = () => {
+  // 删除value的最后一个字符
+  if (model.kilometers.length) {
+    model.kilometers = model.kilometers.substr(0, model.kilometers.length - 1);
+  }
+  console.log(model.kilometers);
 };
 </script>
 <template>
@@ -190,9 +217,9 @@ const submit = () => {
           ></u-textarea>
         </u-form-item>
 
-        <u-form-item label="" prop="model.fileList" borderBottom ref="fileList">
+        <u-form-item label="" prop="waitFileList" borderBottom ref="fileList">
           <u-upload
-            :fileList="model.fileList"
+            :fileList="waitFileList"
             @afterRead="afterRead"
             @delete="deletePic"
             multiple
@@ -209,10 +236,16 @@ const submit = () => {
           <u-input v-model="model.vehicleBrand" border="none"></u-input>
         </u-form-item>
 
-        <u-form-item label="排量/变速" prop="registrationTime" borderBottom>
+        <u-form-item
+          label="排量/变速"
+          prop="model.registrationTime"
+          borderBottom
+        >
+          <u-input v-model="model.registrationTime" border="none"></u-input>
         </u-form-item>
 
         <u-form-item label="所在城市" prop="registrationTime" borderBottom>
+          <u-input v-model="model.registrationTime" border="none"></u-input>
         </u-form-item>
 
         <u-form-item
@@ -236,7 +269,13 @@ const submit = () => {
             ref="KeypadRef"
             mode="number"
             :show="KeypadRefShow"
+            :closeOnClickOverlay="true"
             :dotDisabled="true"
+            :safe-area-inset-bottom="true"
+            @change="valChange"
+            @backspace="backspace"
+            @confirm="KeypadRefShow = false"
+            @cancel="KeypadRefShow = false"
           ></u-keyboard>
         </u-form-item>
         <u-form-item label="牌照归属" prop="registrationTime" borderBottom>

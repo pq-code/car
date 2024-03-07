@@ -57,6 +57,7 @@
   width: calc(100% - 20px);
   padding: 10px;
   border-radius: 6px;
+  background: #f0efef;
 }
 .content .content-main .content-main-heard.data-v-07e72d3c {
   width: 100%;

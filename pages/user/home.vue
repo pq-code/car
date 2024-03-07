@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import dayjs from 'dayjs';
+import { getSetting, getLoginFn } from "@/utils/index.js";
 
 const formData = ref({
     userAvatar: '',
@@ -14,6 +15,19 @@ const editUser = () => {
     uni.navigateTo({
         url: 'editUserInfo',
     });
+};
+
+const login = () => {
+    console.log("当前登录已经失效重新登录");
+    // #ifdef MP-WEIXIN
+    getSetting("scope.record").then((res) => {
+      getLoginFn().then((data) => {
+		  const { user_profile_photo,user_nickname } = uni.getStorageSync("userInfo");
+		  formData.value.userAvatar = user_profile_photo;
+		  formData.value.userName = user_nickname;
+      });
+    });
+    // #endif   
 };
 
 const editUserInfo = () => { };
@@ -30,7 +44,7 @@ onLoad(() => {
 <template>
     <view class="content">
         <view class="content-heard">
-            <u-image @click="editUser()"
+            <u-image @click="login()"
                      :showLoading="true"
                      :src="formData.userAvatar"
                      width="80px"

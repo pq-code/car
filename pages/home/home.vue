@@ -330,6 +330,7 @@ const onReachBottom = () => {
     width: calc(100% - 20px);
     padding: 10px;
     border-radius: 6px;
+    background: #f0efef;
     // padding-bottom: 20px;
 
     .content-main-heard {

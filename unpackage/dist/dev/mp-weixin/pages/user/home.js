@@ -1,5 +1,10 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const utils_index = require("../../utils/index.js");
+require("../../api/apis/user.js");
+require("../../api/index.js");
+require("../../api/service/wxService.js");
+require("../../api/error/errTips.js");
 if (!Array) {
   const _easycom_u_image2 = common_vendor.resolveComponent("u-image");
   const _easycom_tabbar2 = common_vendor.resolveComponent("tabbar");
@@ -19,9 +24,14 @@ const _sfc_main = {
       province: "",
       sex: ""
     });
-    const editUser = () => {
-      common_vendor.index.navigateTo({
-        url: "editUserInfo"
+    const login = () => {
+      console.log("当前登录已经失效重新登录");
+      utils_index.getSetting("scope.record").then((res) => {
+        utils_index.getLoginFn().then((data) => {
+          const { user_profile_photo, user_nickname } = common_vendor.index.getStorageSync("userInfo");
+          formData.value.userAvatar = user_profile_photo;
+          formData.value.userName = user_nickname;
+        });
       });
     };
     common_vendor.onLoad(() => {
@@ -32,7 +42,7 @@ const _sfc_main = {
     });
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.o(($event) => editUser()),
+        a: common_vendor.o(($event) => login()),
         b: common_vendor.p({
           showLoading: true,
           src: formData.value.userAvatar,

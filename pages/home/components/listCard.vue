@@ -1,5 +1,7 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, computed } from "vue";
+import { host } from "@/config/index";
+
 import dayjs from "dayjs";
 const props = defineProps({
   item: {
@@ -13,6 +15,14 @@ const onpen = (item) => {
     url: `listDetails?data=${JSON.stringify(item)}`,
   });
 };
+
+// 封面图片
+const coverPhoto = computed(() => {
+  return (e) => {
+    console.log(host + e.articleCover);
+    return host + e.articleCover;
+  };
+});
 </script>
 
 <template>
@@ -22,7 +32,7 @@ const onpen = (item) => {
         :showLoading="true"
         :lazyLoad="true"
         radius="6px 6px 0 0"
-        :src="item?.src"
+        :src="coverPhoto(item)"
         width="100%"
       ></u-image>
     </view>

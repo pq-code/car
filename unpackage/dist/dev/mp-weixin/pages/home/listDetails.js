@@ -22,14 +22,14 @@ const _sfc_main = {
     });
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.t(common_vendor.unref(form).articleTitle),
-        b: common_vendor.t(common_vendor.unref(form).describe),
-        c: common_vendor.p({
+        a: common_vendor.p({
           list: ["https://cdn.uviewui.com/uview/swiper/swiper1.png", "https://cdn.uviewui.com/uview/swiper/swiper2.png", "https://cdn.uviewui.com/uview/swiper/swiper3.png"],
           indicator: true,
           indicatorMode: "dot",
           circular: true
         }),
+        b: common_vendor.t(common_vendor.unref(form).articleTitle),
+        c: common_vendor.t(common_vendor.unref(form).describe),
         d: common_vendor.t(common_vendor.unref(common_vendor.dayjs)(common_vendor.unref(form).createdAt).format("YYYY-MM-DD")),
         e: common_vendor.p({
           userInfor: {

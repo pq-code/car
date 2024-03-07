@@ -19,12 +19,6 @@ onLoad((data) => {
     }"
   >
     <view class="listDetails-center-heard">
-		<view class="listDetails-center-main-title">
-		  {{ form.articleTitle }}
-		</view>
-		<view class="listDetails-center-main-text">
-		  {{ form.describe }}
-		</view>
       <u-swiper
         :list="[
           'https://cdn.uviewui.com/uview/swiper/swiper1.png',
@@ -35,12 +29,19 @@ onLoad((data) => {
         indicatorMode="dot"
         circular
       ></u-swiper>
+	  <view class="listDetails-center-main-title">
+	    {{ form.articleTitle }}
+	  </view>
+	  <view class="listDetails-center-main-text">
+	    {{ form.describe }}
+	  </view>
     </view>
     <view class="listDetails-center-main">
       <view class="listDetails-center-main-bottom">
         发布时间：{{ dayjs(form.createdAt).format("YYYY-MM-DD") }}
       </view>
 	  <view class="listDetails-center-main-unifiedTemplate" >
+		  
 	  </view>
     </view>
   </pageSearch>
