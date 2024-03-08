@@ -30,7 +30,7 @@ const tabsList = [
     name: "本地服务",
   },
   {
-    name: "本地商家",
+    name: "本地店铺",
   },
   {
     name: "房屋租售",

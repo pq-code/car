@@ -9,7 +9,6 @@
 }
 .listDetails-center-heard .listDetails-center-main-text.data-v-f060453a {
   padding: 0px 10px 10px 10px;
-  width: 100%;
   line-height: 1.5;
   font-size: 33rpx;
   font-weight: 500;
@@ -32,7 +31,7 @@
 }
 .listDetails-center-main .listDetails-center-main-unifiedTemplate.data-v-f060453a {
   width: calc(100% - 20px);
-  background-color: #ebebeb;
+  background-color: #f1f1f1;
   border-radius: 6px;
   padding: 10px;
 }

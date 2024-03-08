@@ -61,7 +61,6 @@ const leftClick = () => {
                 <!-- <template v-if="true">
 
                                                                                                                                                                             </template> -->
-
             </u-navbar>
         </view>
         <view class="page-search-center">
@@ -73,7 +72,7 @@ const leftClick = () => {
 .page-search {
     width: 100vw;
     height: 100vh;
-    background-color: rgb(219, 219, 219);
+    background-color: rgb(204, 204, 204);
 
     .page-search-navbar {
         // float: top;
