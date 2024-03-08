@@ -19,8 +19,7 @@ const onpen = (item) => {
 // 封面图片
 const coverPhoto = computed(() => {
   return (e) => {
-    console.log(host + e.articleCover);
-    return host + e.articleCover;
+    return host + "/image" + e.articleCover;
   };
 });
 </script>

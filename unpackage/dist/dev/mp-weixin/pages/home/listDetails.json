@@ -4,6 +4,10 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "u-swiper": "../../uni_modules/uview-plus/components/u-swiper/u-swiper",
+    "u-form-item": "../../uni_modules/uview-plus/components/u-form-item/u-form-item",
+    "u-gap": "../../uni_modules/uview-plus/components/u-gap/u-gap",
+    "u-input": "../../uni_modules/uview-plus/components/u-input/u-input",
+    "u-form": "../../uni_modules/uview-plus/components/u-form/u-form",
     "page-search": "../../components/pageSearch/pageSearch"
   }
 }

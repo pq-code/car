@@ -251,7 +251,9 @@ const onReachBottom = () => {
         </ul>
       </view>
     </view>
+	
     <u-loadmore
+	  v-if="imageList.length == 0"
       @loadmore="onReachBottom"
       :status="status"
       :icon-type="iconType"

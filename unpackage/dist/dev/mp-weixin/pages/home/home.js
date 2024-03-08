@@ -128,7 +128,7 @@ const _sfc_main = {
       getDataListFn();
     };
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.o(searchFn),
         b: common_vendor.o(searchFn),
         c: common_vendor.o(($event) => keyword.value = $event),
@@ -175,13 +175,15 @@ const _sfc_main = {
             })
           };
         }),
-        l: common_vendor.o(onReachBottom),
-        m: common_vendor.p({
+        l: imageList.value.length == 0
+      }, imageList.value.length == 0 ? {
+        m: common_vendor.o(onReachBottom),
+        n: common_vendor.p({
           status: status.value,
           ["icon-type"]: iconType.value,
           ["load-text"]: loadText.value
         })
-      };
+      } : {});
     };
   }
 };

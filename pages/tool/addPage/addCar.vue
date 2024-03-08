@@ -12,8 +12,8 @@ const waitFileList = reactive([]);
 
 const model = reactive({
   articleTitle: "",
-  vehicleBrand: "",
-  userInfoName: "",
+  usedCarBrand: "",
+  contacts: "",
   describe: "",
   telephone: "",
   weChatId: "",
@@ -21,42 +21,80 @@ const model = reactive({
   registrationTime: "",
   inspectAnnually: "",
   kilometers: "",
+  displacement: "",
+  usedCarCity: "",
 });
 const rules = {
-  // 字段名称
-  "model.describe": {
+  describe: {
     type: "string",
     required: true,
     message: "请填写车辆描述",
     trigger: ["blur"],
   },
-  "model.vehicleBrand": {
+  waitFileList: [
+    {
+      type: "any",
+      required: true,
+      message: "请上传车辆照片",
+      trigger: ["blur", "change"],
+      // 自定义验证函数，见上说明
+      validator: (rule, value, callback) => {
+        if (waitFileList.length > 0) {
+          callback();
+        } else {
+          callback(new Error("请上传车辆照片"));
+        }
+      },
+    },
+  ],
+  usedCarBrand: {
     type: "string",
     required: true,
     message: "请填写车辆品牌",
     trigger: ["blur"],
   },
-  "model.userInfoName": {
+  usedCarCity: {
+    type: "string",
+    required: true,
+    message: "请填写车辆所在城市",
+    trigger: ["blur"],
+  },
+  contacts: {
     type: "string",
     required: true,
     message: "请填写联系人",
     trigger: ["blur"],
   },
-  "model.telephone": [
-    // {
-    //   required: true,
-    //   message: "请输入手机号",
-    //   trigger: ["change", "blur"],
-    // },
+  contactsPhone: [
     {
       validator: (rule, value, callback) => {
-        // 上面有说，返回true表示校验通过，返回false表示不通过
-        // this.$u.test.mobile()就是返回true或者false的
-        return uni.$u.test.telephone(true);
+        return uni.$u.test.mobile(value);
       },
-      message: "手机号码不正确",
+      message: "请输入正确的11位手机号码",
       // 触发器可以同时用blur和change
       trigger: ["change", "blur"],
+    },
+  ],
+  weChatId: [
+    {
+      required: false,
+      message: "微信号",
+      // blur和change事件触发检验
+      trigger: ["blur", "change"],
+    },
+    // 正则判断为字母或数字
+    {
+      pattern: /^[0-9a-zA-Z]*$/g,
+      // 正则检验前先将值转为字符串
+      transform(value) {
+        return String(value);
+      },
+      message: "只能包含字母或数字",
+    },
+    {
+      min: 6,
+      max: 11,
+      message: "长度在6-8个字符之间",
     },
   ],
 };
@@ -74,8 +112,8 @@ const afterRead = async (event: any) => {
   lists.map((item) => {
     waitFileList.push({
       ...item,
-      status: "uploading",
-      message: "待上传",
+      status: "success",
+      message: "",
     });
   });
 };
@@ -101,10 +139,10 @@ const registrationTimeConfirm = (e) => {
   registrationTimeShow.value = false;
 };
 
-const inspectAnnuallyConfirm = (e) => {
-  model.inspectAnnually = dayjs(e.value).format("YYYY-MM-DD");
-  inspectAnnuallyShow.value = false;
-};
+// const inspectAnnuallyConfirm = (e) => {
+//   model.inspectAnnually = dayjs(e.value).format("YYYY-MM-DD");
+//   inspectAnnuallyShow.value = false;
+// };
 
 const kilometersRef = ref();
 
@@ -113,11 +151,9 @@ const KeypadRefShow = ref(false);
 
 const KeypadRefChange = (value) => {
   console.log(value);
-  debugger;
 };
 const KeypadBackspace = (value) => {
   console.log(value);
-  debugger;
 };
 
 onShow(() => {
@@ -126,53 +162,48 @@ onShow(() => {
 });
 
 const submit = async () => {
-  // formRef.value
-  //   .validate()
-  //   .then((res) => {
-
-  // 文件上传
-  try {
-    for (let i = 0; i < waitFileList.length; i++) {
-      const result = await uploadFilePromise(waitFileList[i].url);
-      let item = waitFileList[i];
-      waitFileList.splice(
-        i,
-        1,
-        Object.assign(item, {
-          status: "success",
-          message: "",
-          url: result?.img_name,
-        })
-      );
-      model.fileList.push(result);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-
-  const { user_nickname, user_id } = uni.getStorageSync("userInfo");
-  let parse = {
-    ...model,
-    publisherId: user_id,
-    publisherName: user_nickname,
-  };
-
-  console.log(parse, model.fileList);
-
-  addusedCar(parse)
-    .then((res) => {
-      console.log(res);
-      if (res.code == 0) {
-        uni.navigateBack({});
+  let validate = await formRef.value.validate();
+  if (validate) {
+    // 文件上传
+    try {
+      for (let i = 0; i < waitFileList.length; i++) {
+        const result = await uploadFilePromise(waitFileList[i].url);
+        let item = waitFileList[i];
+        waitFileList.splice(
+          i,
+          1,
+          Object.assign(item, {
+            status: "success",
+            message: "",
+            url: result?.img_name,
+          })
+        );
+        model.fileList.push(result);
       }
-    })
-    .catch((err) => {
-      console.log("err", err);
-    });
-  // })
-  // .catch((errors) => {
-  //   uni.$u.toast("请填写完整");
-  // });
+    } catch (err) {
+      console.log(err);
+    }
+
+    const { user_nickname, user_id } = uni.getStorageSync("userInfo");
+    let parse = {
+      ...model,
+      publisherId: user_id,
+      publisherName: user_nickname,
+    };
+
+    addusedCar(parse)
+      .then((res) => {
+        console.log(res);
+        if (res.code == 0) {
+          uni.navigateBack({});
+        }
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  } else {
+    uni.$u.toast("请填写完整");
+  }
 };
 
 const valChange = (val) => {
@@ -180,7 +211,6 @@ const valChange = (val) => {
 
   model.kilometers += val;
   console.log(model.kilometers);
-  debugger;
 };
 
 const backspace = () => {
@@ -209,7 +239,8 @@ const backspace = () => {
         >
           <u-input v-model="model.articleTitle" border="none"></u-input>
         </u-form-item>
-        <u-form-item label="" prop="model.describe" borderBottom ref="describe">
+
+        <u-form-item label="" prop="describe" borderBottom ref="describe">
           <u-textarea
             border=""
             v-model="model.describe"
@@ -217,7 +248,12 @@ const backspace = () => {
           ></u-textarea>
         </u-form-item>
 
-        <u-form-item label="" prop="waitFileList" borderBottom ref="fileList">
+        <u-form-item
+          label=""
+          prop="waitFileList"
+          borderBottom
+          ref="waitFileList"
+        >
           <u-upload
             :fileList="waitFileList"
             @afterRead="afterRead"
@@ -229,23 +265,23 @@ const backspace = () => {
 
         <u-form-item
           label="车辆品牌"
-          prop="model.vehicleBrand"
+          prop="usedCarBrand"
           borderBottom
           ref="item1"
         >
-          <u-input v-model="model.vehicleBrand" border="none"></u-input>
+          <u-input v-model="model.usedCarBrand" border="none"></u-input>
         </u-form-item>
 
-        <u-form-item
+        <!--<u-form-item
           label="排量/变速"
-          prop="model.registrationTime"
+          prop="model.displacement"
           borderBottom
         >
-          <u-input v-model="model.registrationTime" border="none"></u-input>
-        </u-form-item>
+          <u-input v-model="model.displacement" border="none"></u-input>
+        </u-form-item> -->
 
-        <u-form-item label="所在城市" prop="registrationTime" borderBottom>
-          <u-input v-model="model.registrationTime" border="none"></u-input>
+        <u-form-item label="所在城市" prop="usedCarCity" borderBottom>
+          <u-input v-model="model.usedCarCity" border="none"></u-input>
         </u-form-item>
 
         <u-form-item
@@ -278,8 +314,9 @@ const backspace = () => {
             @cancel="KeypadRefShow = false"
           ></u-keyboard>
         </u-form-item>
-        <u-form-item label="牌照归属" prop="registrationTime" borderBottom>
-        </u-form-item>
+
+        <!--  <u-form-item label="牌照归属" prop="registrationTime" borderBottom>
+        </u-form-item> -->
 
         <u-form-item label="车辆上牌时间" prop="registrationTime" borderBottom>
           <view @click="registrationTimeShow = true">
@@ -292,7 +329,7 @@ const backspace = () => {
           </view>
         </u-form-item>
 
-        <u-form-item label="年检到期时间" prop="inspectAnnually" borderBottom>
+        <!-- <u-form-item label="年检到期时间" prop="inspectAnnually" borderBottom>
           <view @click="inspectAnnuallyShow = true">
             <u-datetime-picker
               :show="inspectAnnuallyShow"
@@ -301,7 +338,7 @@ const backspace = () => {
             ></u-datetime-picker>
             <u-input v-model="model.inspectAnnually" border="none"></u-input>
           </view>
-        </u-form-item>
+        </u-form-item> -->
 
         <u-gap
           height="13"
@@ -309,29 +346,23 @@ const backspace = () => {
           bgColor="rgba(177, 183, 191, 0.1)"
         ></u-gap>
 
-        <u-form-item
-          label="联系人"
-          prop="model.userInfoName"
-          borderBottom
-          ref="item1"
-        >
-          <u-input v-model="model.userInfoName" border="none"></u-input>
+        <u-form-item label="联系人" prop="contacts" borderBottom ref="item1">
+          <u-input
+            oninput="if(value.length > 5)value = value.slice(0, 5)"
+            v-model="model.contacts"
+            border="none"
+          ></u-input>
         </u-form-item>
 
         <u-form-item
           label="联系电话"
-          prop="model.telephone"
+          prop="contactsPhone"
           borderBottom
           ref="item1"
         >
-          <u-input v-model="model.telephone" border="none"></u-input>
+          <u-input v-model="model.contactsPhone" border="none"></u-input>
         </u-form-item>
-        <u-form-item
-          label="微信号"
-          prop="model.weChatId"
-          borderBottom
-          ref="item1"
-        >
+        <u-form-item label="微信号" prop="weChatId" borderBottom ref="item1">
           <u-input v-model="model.weChatId" border="none"></u-input>
         </u-form-item>
       </u-form>
