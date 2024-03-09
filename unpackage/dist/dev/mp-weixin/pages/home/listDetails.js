@@ -36,7 +36,6 @@ const _sfc_main = {
         JSON.parse(form.value.fileList).map((e) => {
           list.value.push(config_index.host + "/image" + e.img_path);
         });
-        console.log("form.value", form.value);
       }
     });
     const previewImage = (e) => {

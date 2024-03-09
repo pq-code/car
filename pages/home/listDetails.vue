@@ -8,13 +8,13 @@ let form = ref({contactsPhone:'',weChatId:''});
 const weChatIdShow = ref(false)
 const contactsPhoneShow = ref(false)
 const list = ref([]);
+
 onLoad((data) => {
   if (data != null) {
     form.value = JSON.parse(data.data);
     JSON.parse(form.value.fileList).map((e) => {
       list.value.push(host + "/image" + e.img_path);
     });
-    console.log("form.value", form.value);
   }
 });
 
@@ -23,22 +23,23 @@ const previewImage = (e) => {
 		urls: list.value, // 这里是图片的数组，可以传入多张图片地址进行预览  
 		current: e // 当前显示图片的http链接或者临时文件路径  
 	});  
-} 
-	 
- const contactsPhone = computed(()=>{
+}
+
+const contactsPhone = computed(()=> {
 	 return (e) =>{
 		 return e.replace(/(\d{3})\d*(\d{4})/, '$1****$2');  
 	 }
- })
+})
  
- const weChatId = computed(()=>{
+ const weChatId = computed(()=> {
  	 return (e) =>{
- 		 // return e.replace(/(\d{2})\d*(\d{4})/, '$1****$2');  
+ 		 // return e.replace(/(\d{2})\d*(\d{4})/, '$1****$2');
 		 return '****'
  	 }
  })
+ 
  const content = ref()
- const obtain = (e)=>{
+ const obtain = (e)=> {
 	 console.log(e)
 	if(e== 'contactsPhoneShow'){
 		content.value = '1111'
@@ -50,6 +51,7 @@ const previewImage = (e) => {
 	} 
  }
 </script>
+
 <template>
   <pageSearch>
     <view class="listDetails-center-heard">
