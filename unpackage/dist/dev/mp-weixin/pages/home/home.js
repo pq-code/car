@@ -6,6 +6,7 @@ require("../../api/apis/user.js");
 require("../../api/index.js");
 require("../../api/service/wxService.js");
 require("../../api/error/errTips.js");
+require("../../config/index.js");
 if (!Array) {
   const _easycom_u_search2 = common_vendor.resolveComponent("u-search");
   const _easycom_u_navbar2 = common_vendor.resolveComponent("u-navbar");

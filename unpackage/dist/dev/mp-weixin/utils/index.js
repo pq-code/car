@@ -1,6 +1,10 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
 const api_apis_user = require("../api/apis/user.js");
+const config_index = require("../config/index.js");
+const imageUrl = (e) => {
+  return config_index.host + "/image" + e;
+};
 const showToast = (e) => {
   common_vendor.index.showToast({
     icon: "none",
@@ -75,4 +79,5 @@ const getLoginFn = () => {
 };
 exports.getLoginFn = getLoginFn;
 exports.getSetting = getSetting;
+exports.imageUrl = imageUrl;
 exports.showToast = showToast;

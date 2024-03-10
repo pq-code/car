@@ -106,8 +106,8 @@ onShow(() => {
     success: (e) => {
       // #ifdef MP-WEIXIN
       navbarHeight.value = e.statusBarHeight + 44;
+	  console.log("height", navbarHeight.value);
       // #endif
-      console.log("height", navbarHeight.value);
     },
   });
 
@@ -251,9 +251,9 @@ const onReachBottom = () => {
         </ul>
       </view>
     </view>
-	
+
     <u-loadmore
-	  v-if="imageList.length == 0"
+      v-if="imageList.length == 0"
       @loadmore="onReachBottom"
       :status="status"
       :icon-type="iconType"
@@ -329,8 +329,8 @@ const onReachBottom = () => {
   }
 
   .content-main {
-    width: calc(100% - 20px);
-    padding: 10px;
+    width: calc(100% - 5px);
+    padding: 10px 0px;
     border-radius: 6px;
     background: #f0efef;
     // padding-bottom: 20px;
@@ -352,7 +352,7 @@ const onReachBottom = () => {
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: start;
-      grid-gap: 10px;
+      grid-gap: 5px;
       margin-bottom: 84px;
       overflow: hidden;
 

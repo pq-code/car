@@ -1,4 +1,11 @@
 import { armorTransformation } from "../api/apis/user"
+import { host } from "@/config/index";
+
+// 获取图片
+export const imageUrl = (e) => {
+    return host + "/image" + e;
+}
+
 export const showToast = (e) => {
     uni.showToast({
         icon: 'none',
@@ -16,10 +23,10 @@ export const getSetting = (scope) => {
     return new Promise((resolve, reject) => {
         uni.authorize({
             scope,
-            success (data) {
+            success(data) {
                 resolve(data);
             },
-            fail (err) {
+            fail(err) {
                 console.log(err);
                 reject(err);
             },
@@ -36,7 +43,7 @@ export const getLoginFn = () => {
                 provider: 'weixin',
                 searchFn: true,
                 onlyAuthorize: true,
-                success (res) {
+                success(res) {
                     resolve(res);
                 },
                 fail: (err) => {
@@ -53,7 +60,7 @@ export const getLoginFn = () => {
                 desc: '获取你的昵称、头像、地区及性别',
                 lang: 'zh_CN',
                 timeout: 3000,
-                success (res) {
+                success(res) {
                     resolve(res);
                 },
                 fail: (err) => {
@@ -81,6 +88,6 @@ export const getLoginFn = () => {
                 } catch (err) {
                     console.log(err);
                 }
-            } 
+            }
         })
 }

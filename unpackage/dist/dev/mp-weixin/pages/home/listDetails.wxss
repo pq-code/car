@@ -8,7 +8,7 @@
   line-height: 1.5;
 }
 .listDetails-center-heard .listDetails-center-main-text.data-v-f060453a {
-  padding: 0px 10px 10px 10px;
+  padding: 0px 10px;
   line-height: 1.5;
   font-size: 33rpx;
   font-weight: 500;

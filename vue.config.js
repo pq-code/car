@@ -4,14 +4,14 @@ module.exports = {
     devServer: {
         proxy: {
             '/wx/users': {
-                target: 'http://localhost:4005/',
+                target: 'http://localhost:4005',
                 changeOrigin: true,
-                // rewrite: path => path.replace(/^\/api/, '/'),
+                rewrite: path => path.replace(/^\/api/wx/users/, ''),
             },
 			'/wx/project': {
-			    target: 'http://localhost:3005/',
+			    target: 'http://localhost:3005',
 			    changeOrigin: true,
-			    // rewrite: path => path.replace(/^\/wx/project/, '/'),
+			    rewrite: path => path.replace(/^\/wx/project/, ''),
 			},
         },
     }

@@ -4,9 +4,9 @@ import { onLoad } from "@dcloudio/uni-app";
 import { host } from "@/config/index";
 import dayjs from "dayjs";
 
-let form = ref({contactsPhone:'',weChatId:''});
-const weChatIdShow = ref(false)
-const contactsPhoneShow = ref(false)
+let form = ref({ contactsPhone: "", weChatId: "" });
+const weChatIdShow = ref(false);
+const contactsPhoneShow = ref(false);
 const list = ref([]);
 
 onLoad((data) => {
@@ -19,37 +19,37 @@ onLoad((data) => {
 });
 
 const previewImage = (e) => {
-	uni.previewImage({  
-		urls: list.value, // 这里是图片的数组，可以传入多张图片地址进行预览  
-		current: e // 当前显示图片的http链接或者临时文件路径  
-	});  
-}
+  uni.previewImage({
+    urls: list.value, // 这里是图片的数组，可以传入多张图片地址进行预览
+    current: e, // 当前显示图片的http链接或者临时文件路径
+  });
+};
 
-const contactsPhone = computed(()=> {
-	 return (e) =>{
-		 return e.replace(/(\d{3})\d*(\d{4})/, '$1****$2');  
-	 }
-})
- 
- const weChatId = computed(()=> {
- 	 return (e) =>{
- 		 // return e.replace(/(\d{2})\d*(\d{4})/, '$1****$2');
-		 return '****'
- 	 }
- })
- 
- const content = ref()
- const obtain = (e)=> {
-	 console.log(e)
-	if(e== 'contactsPhoneShow'){
-		content.value = '1111'
-		contactsPhoneShow.value = true
-	} 
-	if(e== 'weChatIdShow'){
-		content.value = '2222'
-		weChatIdShow.value = true
-	} 
- }
+const contactsPhone = computed(() => {
+  return (e) => {
+    return e.replace(/(\d{3})\d*(\d{4})/, "$1****$2");
+  };
+});
+
+const weChatId = computed(() => {
+  return (e) => {
+    // return e.replace(/(\d{2})\d*(\d{4})/, '$1****$2');
+    return "****";
+  };
+});
+
+const content = ref();
+const obtain = (e) => {
+  console.log(e);
+  if (e == "contactsPhoneShow") {
+    content.value = "1111";
+    contactsPhoneShow.value = true;
+  }
+  if (e == "weChatIdShow") {
+    content.value = "2222";
+    weChatIdShow.value = true;
+  }
+};
 </script>
 
 <template>
@@ -151,21 +151,31 @@ const contactsPhone = computed(()=> {
                 borderBottom
                 ref="item1"
               >
-			  <u-modal v-model="contactsPhoneShow" :content="content"></u-modal>
-               <view style="color: #19be6b;" @click="obtain('contactsPhoneShow')"> {{ contactsPhone(form.contactsPhone) }}</view>
+                <u-modal
+                  v-model="contactsPhoneShow"
+                  :content="content"
+                ></u-modal>
+                <view
+                  style="color: #19be6b"
+                  @click="obtain('contactsPhoneShow')"
+                >
+                  {{ contactsPhone(form.contactsPhone) }}</view
+                >
               </u-form-item>
             </u-col>
           </u-row>
 
           <u-form-item label="微信号" prop="weChatId" borderBottom ref="item1">
-			<u-modal v-model="weChatIdShow" :content="content"></u-modal>
-            <view style="color: #19be6b;" @click="obtain('weChatIdShow')">  {{ weChatId(form.weChatId)}} </view>
+            <u-modal v-model="weChatIdShow" :content="content"></u-modal>
+            <view style="color: #19be6b" @click="obtain('weChatIdShow')">
+              {{ weChatId(form.weChatId) }}
+            </view>
           </u-form-item>
         </u-form>
       </view>
-	  <view style="margin-top: 10px;" :key="index" v-for="(item,index) of list">
-		   <u-image width="100%" :src="item"  @click="previewImage(item)"  ></u-image>
-	  </view>
+      <view style="margin-top: 10px" :key="index" v-for="(item, index) of list">
+        <u-image width="100%" :src="item" @click="previewImage(item)"></u-image>
+      </view>
     </view>
   </pageSearch>
 </template>
@@ -183,7 +193,7 @@ const contactsPhone = computed(()=> {
   }
 
   .listDetails-center-main-text {
-    padding: 0px 10px 10px 10px;
+    padding: 0px 10px;
     // width: 100%;
     line-height: 1.5;
     font-size: 33rpx;

@@ -54,8 +54,8 @@
   flex: 1;
 }
 .content .content-main.data-v-07e72d3c {
-  width: calc(100% - 20px);
-  padding: 10px;
+  width: calc(100% - 5px);
+  padding: 10px 0px;
   border-radius: 6px;
   background: #f0efef;
 }
@@ -75,7 +75,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
-  grid-gap: 10px;
+  grid-gap: 5px;
   margin-bottom: 84px;
   overflow: hidden;
 }

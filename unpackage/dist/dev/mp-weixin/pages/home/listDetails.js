@@ -41,9 +41,9 @@ const _sfc_main = {
     const previewImage = (e) => {
       common_vendor.index.previewImage({
         urls: list.value,
-        // 这里是图片的数组，可以传入多张图片地址进行预览  
+        // 这里是图片的数组，可以传入多张图片地址进行预览
         current: e
-        // 当前显示图片的http链接或者临时文件路径  
+        // 当前显示图片的http链接或者临时文件路径
       });
     };
     const contactsPhone = common_vendor.computed(() => {
